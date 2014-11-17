@@ -1,0 +1,46 @@
+1. Repeat material
+    Complexity of algorithm(see big O notation)
+    OOP(Inheritance, Encapsulation, Polymorphism, Abstraction)
+    Collection in Java
+    Generics, Exceptions
+    Design pattern (Iterator, Strategy)
+
+    good resource for visualizing data structures and algorithms
+    http://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+
+2. Implement interface java.util.Set
+    Don't forget about iterator and Generics
+
+    for more clarify see examples
+    LinkedStack with Iterator
+    https://github.com/presly808/oop5/blob/e23a6d751063684b4bc7a52ddfd8ff0d56cee549/src/week6/day2/linked/LinkedStack.java
+
+    ArrayQueue with Iterator
+    https://github.com/presly808/ACO2/blob/d178ee834c5b317e275f5c33ba28b5b4c156e765/src/ua/artcode/data_structures/QueueArray.java
+
+3. Finish BinarySearchTree
+    add new functional:
+        traverse
+        treeRotation
+        findMin
+        findMax
+
+        *implement iterator
+
+4. Write binary search algorithm
+
+Literature
+
+    "Head First Java" - Basics of Java with a lot of pictures and interesting tasks
+    "Head First Design Pattern" - about design patterns
+
+    Next books contains different situations that help to deep understand Java
+    "Philosophy of Java"
+    "Effective Java" - Rules of using of java
+    "OCA/OCP Java SE 7 Programmer I & II Study Guide" - preparing to oracle exams
+
+    Reference books
+
+    "Core Java 2: Volume I–Fundamentals  Cay S. Horstmann
+    "Core Java 2: Volume II—Advanced Features  Cay S. Horstmann
+    Java. The Complete Reference. Herbert Schildt
