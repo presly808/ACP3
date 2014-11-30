@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * Created by Администратор on 30.11.2014.
  */
 public class Server {
-    private ServerSocket ss; //
+    private ServerSocket ss; 
     int serverPort;
     LinkedList<ServerWorker> workers = new LinkedList<ServerWorker>();
     Thread serverThread;
@@ -32,6 +32,7 @@ public class Server {
 
     public  void run () {
         serverThread = Thread.currentThread();
+        System.out.println("Server started ...");
         while (true) {
 
             try {
@@ -88,7 +89,7 @@ public class Server {
 
         public synchronized void send(String message) {
             try {
-                out.write(message);
+                out.write(message + "\n");
                 out.flush();
                 System.out.println("send");
 

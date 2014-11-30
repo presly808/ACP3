@@ -30,8 +30,10 @@ public class Client {
     }
 
     public static void main(String[] args) {
+        System.out.println("Введите имя:");
         try {
-            new Client("user3", "localhost", 45000).run();
+            String n = new BufferedReader(new InputStreamReader(System.in)).readLine();
+            new Client(n, "localhost", 45000).run();
         } catch (IOException e) {
             System.out.println("Облом");
         }
@@ -64,13 +66,10 @@ public class Client {
     private  class Reciver implements Runnable {
         @Override
         public void run() {
-            System.out.println("Start Reciver");
             while (true)
                 try {
                 System.out.println(inputStream.readLine());
-                    System.out.println("fuck");
             } catch (IOException e) {
-                    System.out.println("fuck");
             }
 
         }
