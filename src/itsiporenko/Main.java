@@ -5,6 +5,7 @@ package itsiporenko;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("TEST GIT");
+        System.out.println("conflict");
+        System.out.println("My test");
     }
 }
