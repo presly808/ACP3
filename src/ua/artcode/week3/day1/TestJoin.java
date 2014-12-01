@@ -17,7 +17,6 @@ public class TestJoin {
                 }
             }
         });
-        worker.yield();
 
         worker.start();
 

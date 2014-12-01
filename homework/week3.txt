@@ -1,0 +1,21 @@
+1. Theoretical material for repeating
+    Git(read git book) and watch http://www.ex.ua/79601047
+    Threads synchronization(wait, notify, notifyAll), synchronized blocks and methods
+    Sockets(ServerSocket, Socket), Logging(java.util.logging.*)
+    patterns Builder and Observer
+
+    class Properties
+
+2. Implement asynchronous chat that allows communication with two and more users
+    Must have
+    - logging (saving history of messages and logging all non-standard situations)
+    - read connections setting(port, max users size, list of banned users)
+        from server_settings.properties (see class Properties)
+    - send message using Serialization
+    - for better architecture of application see pattern Observer
+    - don't forget about Swing
+
+3. Prepare UML (Class diagram) for our project "Bug Tracking System"
+    analyze Jira
+
+This is task for team work )
