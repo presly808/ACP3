@@ -12,48 +12,58 @@ import java.util.Date;
 public class Client {
     String name = "";
     final Socket s;
-    final BufferedReader inputStream; // буферизированный читатель с сервера
-    //final ObjectInputStream inputStream; // буферизированный читатель с сервера
-    final BufferedWriter outputStream; // буферизированный писатель на сервер
-    //final ObjectOutputStream outputStream; // буферизированный писатель на сервер
+    final ObjectInputStream inputStream;
+    final ObjectOutputStream outputStream;
     final BufferedReader userInput; // буферизированный читатель пользовательского ввода с консоли
 
     public Client(String name, String host, int port) throws IOException {
         s = new Socket(host, port);
-        // inputStream = new ObjectInputStream(s.getInputStream());
-        inputStream = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        outputStream = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-        //outputStream = new ObjectOutputStream(s.getOutputStream());
+        BufferedOutputStream bos = new BufferedOutputStream(s.getOutputStream());
+        outputStream = new ObjectOutputStream(bos);
+        BufferedInputStream bis = new BufferedInputStream(s.getInputStream());
+        inputStream = new ObjectInputStream(bis);
         userInput = new BufferedReader(new InputStreamReader(System.in));
         this.name = name;
+        System.out.println("OK");
         new Thread(new Reciver()).start();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static void main(String[] args) {
         System.out.println("Введите имя:");
         try {
             String n = new BufferedReader(new InputStreamReader(System.in)).readLine();
-            new Client(n, "localhost", 45000).run();
+            new Client(n, "127.0.0.1", 45000).run();
         } catch (IOException e) {
-            System.out.println("Облом");
+            e.getStackTrace();
         }
     }
 
 
     public void run() {
         System.out.println("Connected");
+
+
         while (!s.isClosed()) {
-            String message = null;
+            String line = null;
             try {
                 System.out.println("Введите сообщение:");
-                message = userInput.readLine();
+                line = userInput.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+            Message msg = new Message();
+            msg.setDate(new Date());
+            msg.setFrom(name);
+            msg.setMsg(line);
+
 
             try {
-                outputStream.write(name +" "+  new Date()+ " " + message + "\n");
+                outputStream.writeObject(msg);
                 outputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -66,12 +76,16 @@ public class Client {
     private  class Reciver implements Runnable {
         @Override
         public void run() {
-            while (true)
+            while (!s.isClosed()){
                 try {
-                System.out.println(inputStream.readLine());
-            } catch (IOException e) {
-            }
+                    Message msg = (Message) inputStream.readObject();
+                    System.out.println(msg);
+                } catch (IOException e) {
 
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

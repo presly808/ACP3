@@ -1,11 +1,12 @@
 package yaroslav.multiChat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Администратор on 30.11.2014.
  */
-public class Message {
+public class Message implements Serializable {
     private String msg;
     private Date date;
     private String from;
