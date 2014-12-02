@@ -127,6 +127,14 @@ public class Client {
             if (obj.getClass().equals(Message.class)) {
                 msgIn = (Message) obj;
                 System.out.println(msgIn);
+            } else if (obj.getClass().equals(ChatHistory.class)) {
+                if (history!=null)history.showAll();
+            } else if (obj.getClass().equals(Ping.class)) {
+                try {
+                    oos.writeObject(new Ping());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

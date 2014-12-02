@@ -6,7 +6,7 @@ import java.net.Socket;
 /**
  * Created by babiy on 02.12.14.
  */
-public class Test {
+public class TestServer {
     public static void main(String[] args) {
         Server s = new Server();
         s.start();

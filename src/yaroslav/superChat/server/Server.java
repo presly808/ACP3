@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by babiy on 02.12.14.
@@ -15,24 +17,22 @@ public class Server {
 
     private static UsersList list = new UsersList();
     private static ChatHistory chatHistory = new ChatHistory();
+    public static final Logger logger = Logger.getLogger("yaroslav.superChat.server.Server.java");
 
     public  void start () {
         try {
-            System.out.println("Создаем слушатель");//Создаем слушатель
+            logger.log(Level.INFO,"Server started..");
             ServerSocket socketListener = new ServerSocket(Config.PORT);
 
             while (true) {
                 Socket client = socketListener.accept();
-                System.out.println("Создаем новый поток, которому передаем сокет");
-                new ClientThread(client); //Создаем новый поток, которому передаем сокет
+                new ClientThread(client);
 
             }
         } catch (SocketException e) {
-            System.err.println("Socket exception");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Socket exception on start server", e);
         } catch (IOException e) {
-            System.err.println("I/O exception");
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"IOException on start server", e);
         }
     }
 
@@ -49,7 +49,7 @@ public class Server {
 
 
         private Socket socket;
-        private Message c;
+        private Message message;
         private String login;
         private int inPacks = 0;
         private int outPacks = 0;
@@ -63,68 +63,68 @@ public class Server {
 
         public void run() {
             try {
-                final ObjectInputStream inputStream   = new ObjectInputStream(this.socket.getInputStream());
-                final ObjectOutputStream outputStream = new ObjectOutputStream(this.socket.getOutputStream());
+                final ObjectInputStream inputStream   = new ObjectInputStream(socket.getInputStream());
+                final ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
-                this.c = (Message) inputStream.readObject();
-                this.login = this.c.getLogin();
+                message = (Message) inputStream.readObject();
+                login = message.getLogin();
+                logger.log(Level.INFO, "Started ClientThread for " + login);
 
 
-                if (! this.c.getMessage().equals(Config.HELLO_MESSAGE)) {
-                    System.out.println("[" + this.c.getLogin() + "]: " + this.c.getMessage());
-                    getChatHistory().addMessage(this.c);
+                if (! message.getMessage().equals(Config.HELLO_MESSAGE)) {
+                    System.out.println("[" + message.getLogin() + "]: " + message.getMessage());
+                    getChatHistory().addMessage(message);
                 } else {
                     outputStream.writeObject(getChatHistory());
-                    this.broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been connect"));
+                    broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been connect"));
                 }
                 getUserList().addUser(login, socket, outputStream, inputStream);
 
-                this.c.setOnlineUsers(getUserList().getUsers());
-                this.broadcast(getUserList().getClientsList(), this.c);
+                message.setOnlineUsers(getUserList().getUsers());
+                broadcast(getUserList().getClientsList(), message);
 
-
-
-
-                outputStream.writeObject(new Ping());
-                this.outPacks++;
+                outputStream.writeObject(new Ping()); // Надо сделать проверку что клиент еще жив! Отправл = Принятым
+                outPacks++;
                 System.out.println(outPacks + " out");
 
                 while (true) {
-                    if(this.flag) {
-                        this.flag = false;
+                    if(flag) {
+                        flag = false;
                         break;
                     }
-                    this.c = (Message) inputStream.readObject();
+                    message = (Message) inputStream.readObject();
 
-                    if (this.c instanceof Ping) {
-                        this.inPacks++;
-                        System.out.println(this.inPacks + " in");
+                    if (message instanceof Ping) {
+                        inPacks++; // Надо сделать проверку что клиент еще жив! Отправл = Принятым
+                        System.out.println(inPacks + " in");
 
-                    } else if (! c.getMessage().equals(Config.HELLO_MESSAGE)) {
-                        System.out.println("[" + login + "]: " + c.getMessage());
-                        getChatHistory().addMessage(this.c);
+                    } else if (! message.getMessage().equals(Config.HELLO_MESSAGE)) {
+                        logger.log(Level.INFO, "[" + login + "]: " + message.getMessage());
+                        getChatHistory().addMessage(message);
 
                     } else {
                         outputStream.writeObject(getChatHistory());
-                        this.broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been connect"));
+                        broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been connect"));
                     }
 
-                    this.c.setOnlineUsers(getUserList().getUsers());
+                    message.setOnlineUsers(getUserList().getUsers());
 
-                    if (! (c instanceof Ping) && ! c.getMessage().equals("User join to the chat(Auto-message)")) {
-                        System.out.println("Send broadcast Message: " + c.getMessage() + " ");
-                        this.broadcast(getUserList().getClientsList(), this.c);
+                    if (! (message instanceof Ping) && ! message.getMessage().equals("User join to the chat(Auto-message)")) {
+                        logger.log(Level.INFO,"[" + login + "]: " + message.getMessage() );
+                        broadcast(getUserList().getClientsList(), message);
                     }
                 }
 
             } catch (SocketException e) {
-                System.out.println(login + " disconnected!");
+                logger.log(Level.INFO,login + " disconnected!" );
                 getUserList().deleteUser(login);
                 broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been disconnect", getUserList().getUsers()));
 
             } catch (IOException e) {
+                logger.log(Level.SEVERE, "IOException then run ClientThread", e);
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
+                logger.log(Level.SEVERE, "ClassNotFoundException then run ClientThread", e);
                 e.printStackTrace();
             }
         }
@@ -136,13 +136,13 @@ public class Server {
                     client.getThisObjectOutputStream().writeObject(message);
                 }
             } catch (SocketException e) {
-                System.out.println("in broadcast: " + login + " disconnected!");
+                logger.log(Level.SEVERE, "in broadcast: " + login + " disconnected!", e);
                 getUserList().deleteUser(login);
-                this.broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been disconnected", getUserList().getUsers()));
+                broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been disconnected", getUserList().getUsers()));
 
 
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "IOException broadcast", e);
             }
         }
 
