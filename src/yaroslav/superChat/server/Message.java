@@ -50,6 +50,15 @@ public class Message implements Serializable {
         Time tm = new Time(this.time.getTime());
         return tm.toString();
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "login='" + login + '\'' +
+                ", message='" + message + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }
 
 

@@ -10,7 +10,7 @@ public class TestCl {
     public static void main(String[] args) {
 
         try {
-            Client c = new Client(new Socket("127.0.0.1", 5001));
+            Client c = new Client("mm", new Socket("127.0.0.1", 5001));
             c.run();
         } catch (IOException e) {
             e.printStackTrace();

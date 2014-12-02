@@ -11,19 +11,22 @@ import java.util.logging.Logger;
  * Created by Администратор on 30.11.2014.
  */
 public class Server {
-    private ServerSocket serverSocket;
-    private int serverPort;
+    private ServerSocket inSocket;
+    private ServerSocket outSocket;
+    private int serverPortIn;
+    private int serverPortOut;
     private LinkedList<ClientProcessor> clientProcessors = new LinkedList<ClientProcessor>();
     private final Logger logger = Logger.getLogger("yaroslav.multiChat.Server");
 
 
-    public Server(int port) {
-            serverPort = port;
+    public Server(int portIn, int portOut) {
+            serverPortIn = portIn;
+            serverPortOut = portOut;
             logger.log(Level.INFO, "Server started ...");
     }
 
     public static void main(String[] args) throws IOException {
-        new Server(45000).run();
+        new Server(45000, 45001).run();
     }
 
     public  void run () {
@@ -32,12 +35,15 @@ public class Server {
         while (true) {
 
             try {
-                serverSocket = new ServerSocket(serverPort);
+                inSocket = new ServerSocket(serverPortIn);
+                outSocket = new ServerSocket(serverPortOut);
+
                 logger.log(Level.INFO, "Waiting for connected " );
-                Socket fromClient = serverSocket.accept();
+                Socket in = inSocket.accept();
+                Socket out = outSocket.accept();
 
                 logger.log(Level.INFO, "Connected " );
-                ClientProcessor clientProcessor = new ClientProcessor(fromClient);
+                ClientProcessor clientProcessor = new ClientProcessor(in, out);
 
                 clientProcessors.add(clientProcessor);
                 Thread thread = new Thread(clientProcessor);
@@ -51,35 +57,33 @@ public class Server {
         }
     }
 
-    public void stop (){
-        for (ClientProcessor w: clientProcessors) {
-            w.close();
-        }
-        if (!serverSocket.isClosed()) {
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-                System.out.println("Opss...");
-            }
-        }
-    }
+//    public void stop (){
+//        for (ClientProcessor w: clientProcessors) {
+//            w.close();
+//        }
+//        if (!serverSocket.isClosed()) {
+//            try {
+//                serverSocket.close();
+//            } catch (IOException e) {
+//                System.out.println("Opss...");
+//            }
+//        }
+//    }
 
 
     private class ClientProcessor implements Runnable {
-        private Socket procesorSocket;
         private ObjectInputStream in;
         private ObjectOutputStream out;
         private Message msg;
 
 
-        public ClientProcessor(Socket socket)  {
+        public ClientProcessor(Socket inS, Socket outS)  {
             logger.log(Level.INFO, "Init ClientProcessor");
-            procesorSocket = socket;
             try {
-            BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+            BufferedOutputStream bos = new BufferedOutputStream(outS.getOutputStream());
             out = new ObjectOutputStream(bos);
             logger.log(Level.INFO, "out getted");
-            BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
+            BufferedInputStream bis = new BufferedInputStream(inS.getInputStream());
             logger.log(Level.INFO, "bis getted");
             in = new ObjectInputStream(bis);
             logger.log(Level.INFO, "in getted");
@@ -96,7 +100,7 @@ public class Server {
         public void run() {
             System.out.println("Запустился воркер");
 
-            while (!procesorSocket.isClosed()) {
+            while (true) {
 
                 try {
                     msg = (Message)in.readObject();
@@ -120,18 +124,14 @@ public class Server {
                 System.out.println("send");
 
             } catch (IOException e) {
+                System.out.println("Send fail");
                 close();
             }
 
         }
 
         private void close() {
-            clientProcessors.remove(this);
-            if (!procesorSocket.isClosed()) {
-                try {
-                    procesorSocket.close();
-                } catch (IOException ignored) {}
-            }
+
         }
     }
 }

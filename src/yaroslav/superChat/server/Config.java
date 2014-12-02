@@ -9,7 +9,7 @@ import java.util.Properties;
  * Created by babiy on 02.12.14.
  */
 public class Config {
-    private static final String PROPERTIES_FILE = "D:\\ACP3-master\\ACP3\\src\\yaroslav\\superChat\\server.properties";
+    private static final String PROPERTIES_FILE = "D:\\ACP3-master\\ACP3\\src\\yaroslav\\superChat\\server\\server.ini";
 
     public static int PORT;
     public static int HISTORY_LENGTH;

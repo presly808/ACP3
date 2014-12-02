@@ -19,7 +19,7 @@ public class Server {
     public  void start () {
         try {
             System.out.println("Создаем слушатель");//Создаем слушатель
-            ServerSocket socketListener = new ServerSocket(5001);
+            ServerSocket socketListener = new ServerSocket(Config.PORT);
 
             while (true) {
                 Socket client = socketListener.accept();
@@ -47,7 +47,6 @@ public class Server {
 
     class ClientThread extends Thread {
 
-        private final static int DELAY = 30000;
 
         private Socket socket;
         private Message c;
@@ -112,7 +111,7 @@ public class Server {
 
                     this.c.setOnlineUsers(getUserList().getUsers());
 
-                    if (! (c instanceof Ping) && ! c.getMessage().equals(Config.HELLO_MESSAGE)) {
+                    if (! (c instanceof Ping) && ! c.getMessage().equals("User join to the chat(Auto-message)")) {
                         System.out.println("Send broadcast Message: " + c.getMessage() + " ");
                         this.broadcast(getUserList().getClientsList(), this.c);
                     }
