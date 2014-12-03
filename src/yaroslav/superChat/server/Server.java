@@ -19,9 +19,11 @@ public class Server {
     private static ChatHistory chatHistory = new ChatHistory();
     public static final Logger logger = Logger.getLogger("yaroslav.superChat.server.Server.java");
 
+
     public  void start () {
         try {
-            logger.log(Level.INFO,"Server started..");
+            logger.log(Level.INFO, "Server started..");
+
             ServerSocket socketListener = new ServerSocket(Config.PORT);
 
             while (true) {
@@ -32,7 +34,7 @@ public class Server {
         } catch (SocketException e) {
             logger.log(Level.SEVERE, "Socket exception on start server", e);
         } catch (IOException e) {
-            logger.log(Level.SEVERE,"IOException on start server", e);
+            logger.log(Level.SEVERE, "IOException on start server", e);
         }
     }
 
@@ -110,13 +112,13 @@ public class Server {
                     message.setOnlineUsers(getUserList().getUsers());
 
                     if (! (message instanceof Ping) && ! message.getMessage().equals("User join to the chat(Auto-message)")) {
-                        logger.log(Level.INFO,"[" + login + "]: " + message.getMessage() );
+                        logger.log(Level.INFO, "[" + login + "]: " + message.getMessage());
                         broadcast(getUserList().getClientsList(), message);
                     }
                 }
 
             } catch (SocketException e) {
-                logger.log(Level.INFO,login + " disconnected!" );
+                logger.log(Level.INFO, login + " disconnected!");
                 getUserList().deleteUser(login);
                 broadcast(getUserList().getClientsList(), new Message("Server-Bot", "The user " + login + " has been disconnect", getUserList().getUsers()));
 

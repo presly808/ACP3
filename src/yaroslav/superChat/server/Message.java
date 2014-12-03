@@ -2,6 +2,7 @@ package yaroslav.superChat.server;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -53,11 +54,10 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "login='" + login + '\'' +
-                ", message='" + message + '\'' +
-                ", time=" + time +
-                '}';
+        SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
+        return login + ":" +
+                message + " at "
+                + ft.format(time);
     }
 }
 

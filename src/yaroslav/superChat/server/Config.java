@@ -9,11 +9,12 @@ import java.util.Properties;
  * Created by babiy on 02.12.14.
  */
 public class Config {
-    private static final String PROPERTIES_FILE = "D:\\Java\\newACP3\\ACP3\\src\\yaroslav\\superChat\\server\\server.prop";
+    private static final String PROPERTIES_FILE = "D:\\ACP3-master\\ACP3\\src\\yaroslav\\superChat\\server\\server.prop";
 
     public static int PORT;
     public static int HISTORY_LENGTH;
     public static String HELLO_MESSAGE;
+    public static String[] BLACK_LIST;
 
     static {
         Properties properties = new Properties();
@@ -26,6 +27,7 @@ public class Config {
             PORT             = Integer.parseInt(properties.getProperty("PORT"));
             HISTORY_LENGTH   = Integer.parseInt(properties.getProperty("HISTORY_LENGTH"));
             HELLO_MESSAGE    = properties.getProperty("HELLO_MESSAGE");
+            BLACK_LIST       = properties.getProperty("BLACK_LIST").split(",");
 
         } catch (FileNotFoundException ex) {
             System.err.println("Properties config file not found");
