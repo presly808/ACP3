@@ -1,6 +1,5 @@
 package yaroslav.superChat;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -20,10 +19,6 @@ public class Client {
     private String login;
     private ClienForm cf = new ClienForm();
 
-
-
-
-
     public Client(String login, Socket socket) {
 
         this.socket = socket;
@@ -33,17 +28,16 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 send(cf.textField.getText());
-
                 cf.textField.setText("");
             }
         });
     }
 
-    public Client(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {
-        this.socket = socket;
-        this.oos = oos;
-        this.ois = ois;
-    }
+//    public Client(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {
+//        this.socket = socket;
+//        this.oos = oos;
+//        this.ois = ois;
+//    }
 
 
 
@@ -75,18 +69,6 @@ public class Client {
         Thread r = new Thread(new Reciver(ois));
         r.setDaemon(true);
         r.start();
-
-//        System.out.println("Введите сообщение:");
-//        BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-//        while (true) {
-
-//            String line = null;
-//            line = sendMessageForm();
-//            send(line);
-//
-//
-//        }
-
     }
 
     public void send(String s) {

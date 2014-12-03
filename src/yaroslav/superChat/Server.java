@@ -74,7 +74,7 @@ public class Server {
 
 
                 if (! message.getMessage().equals(Config.HELLO_MESSAGE)) {
-                    System.out.println("[" + message.getLogin() + "]: " + message.getMessage());
+ //                   System.out.println("[" + message.getLogin() + "]: " + message.getMessage());
                     getChatHistory().addMessage(message);
                 } else {
                     outputStream.writeObject(getChatHistory());
@@ -124,10 +124,8 @@ public class Server {
 
             } catch (IOException e) {
                 logger.log(Level.SEVERE, "IOException then run ClientThread", e);
-                e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 logger.log(Level.SEVERE, "ClassNotFoundException then run ClientThread", e);
-                e.printStackTrace();
             }
         }
 
