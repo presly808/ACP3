@@ -1,4 +1,4 @@
-package yaroslav.superChat.server;
+package yaroslav.superChat;
 
 /**
  * Created by babiy on 02.12.14.

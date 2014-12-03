@@ -1,4 +1,4 @@
-package yaroslav.superChat.server;
+package yaroslav.superChat;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.util.Properties;
  * Created by babiy on 02.12.14.
  */
 public class Config {
-    private static final String PROPERTIES_FILE = "D:\\ACP3-master\\ACP3\\src\\yaroslav\\superChat\\server\\server.prop";
+    private static final String PROPERTIES_FILE = "D:\\Java\\newACP3\\ACP3\\src\\yaroslav\\superChat\\server.prop";
 
     public static int PORT;
     public static int HISTORY_LENGTH;

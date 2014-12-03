@@ -1,4 +1,4 @@
-package yaroslav.superChat.server;
+package yaroslav.superChat;
 
 import java.io.Serializable;
 import java.sql.Time;
@@ -55,9 +55,8 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
-        return login + ":" +
-                message + " at "
-                + ft.format(time);
+        return ft.format(time) + " от " + login + ": \t" + message;
+
     }
 }
 

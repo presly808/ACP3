@@ -1,4 +1,4 @@
-package yaroslav.superChat.server;
+package yaroslav.superChat;
 
 import java.io.Serializable;
 import java.util.ArrayList;

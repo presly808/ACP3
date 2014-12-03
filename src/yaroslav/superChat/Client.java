@@ -1,7 +1,11 @@
-package yaroslav.superChat.server;
+package yaroslav.superChat;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * Created by babiy on 02.12.14.
@@ -14,13 +18,25 @@ public class Client {
     private Message msgIn;
     private ChatHistory history;
     private String login;
+    private ClienForm cf = new ClienForm();
 
 
-    public Client(String login, Socket socket ) {
+
+
+
+    public Client(String login, Socket socket) {
+
         this.socket = socket;
         this.login = login;
 
+        cf.send.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                send(cf.textField.getText());
 
+                cf.textField.setText("");
+            }
+        });
     }
 
     public Client(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {
@@ -29,25 +45,13 @@ public class Client {
         this.ois = ois;
     }
 
+
+
     public Socket getSocket() {
         return this.socket;
     }
 
-    public ObjectOutputStream getThisObjectOutputStream() {
-        return this.oos;
-    }
 
-    public ObjectInputStream getThisObjectInputStream() {
-        return this.ois;
-    }
-
-    public void setThisObjectOutputStream(ObjectOutputStream oos) {
-        this.oos = oos;
-    }
-
-    public void setThisObjectInputStream(ObjectInputStream ois) {
-        this.ois = ois;
-    }
 
     public void run() {
         System.out.println("Do oos and ois");
@@ -72,23 +76,20 @@ public class Client {
         r.setDaemon(true);
         r.start();
 
-        System.out.println("Введите сообщение:");
-        BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
-            String line = null;
-            try {
-                line = userInput.readLine();
-                send(line);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        System.out.println("Введите сообщение:");
+//        BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+//        while (true) {
 
-
-        }
+//            String line = null;
+//            line = sendMessageForm();
+//            send(line);
+//
+//
+//        }
 
     }
 
-    private void send(String s) {
+    public void send(String s) {
         msgOut = new Message(login, s);
         try {
             oos.writeObject(msgOut);
@@ -98,19 +99,19 @@ public class Client {
     }
 
 
-
-    class Reciver extends  Thread{
+    class Reciver extends Thread {
         private ObjectInputStream in;
-        public Reciver (ObjectInputStream in) {
+
+        public Reciver(ObjectInputStream in) {
             this.in = in;
         }
 
         @Override
         public void run() {
-            while (true){
+            while (true) {
 
                 try {
-                    Object obj =  in.readObject();
+                    Object obj = in.readObject();
                     show(obj);
 
                 } catch (IOException e) {
@@ -123,17 +124,24 @@ public class Client {
             }
         }
 
-        private void show (Object obj){
+        private void show(Object obj) {
             if (obj.getClass().equals(Message.class)) {
                 msgIn = (Message) obj;
-                System.out.println(msgIn);
-            } else if (obj.getClass().equals(ChatHistory.class)) {
-                if (history!=null)history.showAll();
-            } else if (obj.getClass().equals(Ping.class)) {
-                try {
-                    oos.writeObject(new Ping());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                cf.showMessage(msgIn.toString());
+            } else {
+                if (obj.getClass().equals(ChatHistory.class)) {
+                    if (history != null) {
+                        history = (ChatHistory) obj;
+                        for (Message h : history.getHistory()) {
+                            cf.showMessage(h.toString());
+                        }
+                    }
+                } else if (obj.getClass().equals(Ping.class)) {
+                    try {
+                        oos.writeObject(new Ping());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

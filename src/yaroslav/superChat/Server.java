@@ -1,4 +1,4 @@
-package yaroslav.superChat.server;
+package yaroslav.superChat;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +17,7 @@ public class Server {
 
     private static UsersList list = new UsersList();
     private static ChatHistory chatHistory = new ChatHistory();
-    public static final Logger logger = Logger.getLogger("yaroslav.superChat.server.Server.java");
+    public static final Logger logger = Logger.getLogger("Server.java");
 
 
     public  void start () {
@@ -132,10 +132,10 @@ public class Server {
         }
 
 
-        private void broadcast(ArrayList<Client> clientsArrayList, Message message) {
+        private void broadcast(ArrayList<User> clientsArrayList, Message message) {
             try {
-                for (Client client : clientsArrayList) {
-                    client.getThisObjectOutputStream().writeObject(message);
+                for (User user : clientsArrayList) {
+                    user.getThisObjectOutputStream().writeObject(message);
                 }
             } catch (SocketException e) {
                 logger.log(Level.SEVERE, "in broadcast: " + login + " disconnected!", e);

@@ -1,7 +1,4 @@
-package yaroslav.superChat.server;
-
-import java.io.IOException;
-import java.net.Socket;
+package yaroslav.superChat;
 
 /**
  * Created by babiy on 02.12.14.
