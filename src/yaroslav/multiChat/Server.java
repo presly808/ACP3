@@ -18,25 +18,25 @@ public class Server {
 
 
     public Server(int port) {
-            serverPort = port;
-            logger.log(Level.INFO, "Server started ...");
+        serverPort = port;
+        logger.log(Level.INFO, "Server started ...");
     }
 
     public static void main(String[] args) throws IOException {
         new Server(45000).run();
     }
 
-    public  void run () {
+    public void run() {
 
 
         while (true) {
 
             try {
                 serverSocket = new ServerSocket(serverPort);
-                logger.log(Level.INFO, "Waiting for connected " );
+                logger.log(Level.INFO, "Waiting for connected ");
                 Socket fromClient = serverSocket.accept();
 
-                logger.log(Level.INFO, "Connected " );
+                logger.log(Level.INFO, "Connected ");
                 ClientProcessor clientProcessor = new ClientProcessor(fromClient);
 
                 clientProcessors.add(clientProcessor);
@@ -51,8 +51,8 @@ public class Server {
         }
     }
 
-    public void stop (){
-        for (ClientProcessor w: clientProcessors) {
+    public void stop() {
+        for (ClientProcessor w : clientProcessors) {
             w.close();
         }
         if (!serverSocket.isClosed()) {
@@ -72,22 +72,21 @@ public class Server {
         private Message msg;
 
 
-        public ClientProcessor(Socket socket)  {
+        public ClientProcessor(Socket socket) {
             logger.log(Level.INFO, "Init ClientProcessor");
             procesorSocket = socket;
             try {
-            BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-            out = new ObjectOutputStream(bos);
-            logger.log(Level.INFO, "out getted");
-            BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
-            logger.log(Level.INFO, "bis getted");
-            in = new ObjectInputStream(bis);
-            logger.log(Level.INFO, "in getted");
+                BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+                out = new ObjectOutputStream(bos);
+                logger.log(Level.INFO, "out getted");
+                BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
+                logger.log(Level.INFO, "bis getted");
+                in = new ObjectInputStream(bis);
+                logger.log(Level.INFO, "in getted");
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
 
         }
@@ -99,7 +98,7 @@ public class Server {
             while (!procesorSocket.isClosed()) {
 
                 try {
-                    msg = (Message)in.readObject();
+                    msg = (Message) in.readObject();
                 } catch (IOException e) {
                     close();
                 } catch (ClassNotFoundException e) {
@@ -130,7 +129,8 @@ public class Server {
             if (!procesorSocket.isClosed()) {
                 try {
                     procesorSocket.close();
-                } catch (IOException ignored) {}
+                } catch (IOException ignored) {
+                }
             }
         }
     }
