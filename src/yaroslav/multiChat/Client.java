@@ -11,16 +11,19 @@ import java.util.Date;
  */
 public class Client {
     String name = "";
-    final Socket s;
+    final Socket sIn;
+    final Socket sOut;
     final ObjectInputStream inputStream;
     final ObjectOutputStream outputStream;
     final BufferedReader userInput; // буферизированный читатель пользовательского ввода с консоли
 
-    public Client(String name, String host, int port) throws IOException {
-        s = new Socket(host, port);
-        BufferedOutputStream bos = new BufferedOutputStream(s.getOutputStream());
+    public Client(String name, String host, int portIn, int portOut) throws IOException {
+        sIn = new Socket(host, portIn);
+        sOut = new Socket(host, portOut);
+
+        BufferedOutputStream bos = new BufferedOutputStream(sOut.getOutputStream());
         outputStream = new ObjectOutputStream(bos);
-        BufferedInputStream bis = new BufferedInputStream(s.getInputStream());
+        BufferedInputStream bis = new BufferedInputStream(sIn.getInputStream());
         inputStream = new ObjectInputStream(bis);
         userInput = new BufferedReader(new InputStreamReader(System.in));
         this.name = name;
@@ -36,7 +39,7 @@ public class Client {
         System.out.println("Введите имя:");
         try {
             String n = new BufferedReader(new InputStreamReader(System.in)).readLine();
-            new Client(n, "127.0.0.1", 45000).run();
+            new Client(n, "127.0.0.1", 45001 , 45000).run();
         } catch (IOException e) {
             e.getStackTrace();
         }
@@ -47,7 +50,7 @@ public class Client {
         System.out.println("Connected");
 
 
-        while (!s.isClosed()) {
+        while (true) {
             String line = null;
             try {
                 System.out.println("Введите сообщение:");
@@ -76,7 +79,7 @@ public class Client {
     private  class Reciver implements Runnable {
         @Override
         public void run() {
-            while (!s.isClosed()){
+            while (true){
                 try {
                     Message msg = (Message) inputStream.readObject();
                     System.out.println(msg);
