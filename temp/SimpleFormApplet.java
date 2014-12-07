@@ -1,4 +1,3 @@
-package ua.artcode.week4.aplet_ex;
 
 import javax.swing.*;
 import java.applet.Applet;
@@ -7,7 +6,7 @@ import java.awt.*;
 /**
  *
  */
-public class SimpleFormApplet extends Applet {
+public class SimpleFormApplet extends JApplet {
 
     private JLabel label;
     private JTextField field;
