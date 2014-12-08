@@ -1,0 +1,22 @@
+1. XML(DOM structure)
+    Parsing xml (DOM, SAX, XPath)
+    Maven
+        pom.xml structure
+        phases of maven
+
+2. write own serialization (object -> xml)
+             deserialization (xml -> object)
+
+   use recursion if object has-a reference types
+   see example ua.artcode.week4.day1
+
+3. Write universal downloader from ex.ua (That helps us download all files from page)
+       1. First input url address of page
+       2. then parse page and find urls like "/load/{idOfFile}" ex. href="/load/124701188" (use sax parser)
+       3. Take url adn download file using URL class
+
+4. Implement part of proj_jira (use your imagination)
+    4.1 Create project based on maven
+    4.2 Write Simple frame
+    4.3 Save app data into xml file
+    4.4. write simple test for service methods
