@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ua.arcode</groupId>
-  <artifactId>SimpleTestModul</artifactId>
+  <artifactId>SimpleJIRA</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>SimpleTestModul</name>
+  <name>SimpleJIRA</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -19,15 +19,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
+      <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>org.jsoup</groupId>
-      <artifactId>jsoup</artifactId>
-      <version>1.7.2</version>
-    </dependency>
-
   </dependencies>
-
-
 </project>
