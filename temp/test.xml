@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<group name="ACP3">
+    <student id="1">
+        <fname>"Ira"</fname>
+        <lname>"Tsiparenko"</lname>
+    </student>
+    <student id="2">
+        <fname>"Slava"</fname>
+        <lname>"Babiy"</lname>
+    </student>
+    <student id="3">
+        <fname>"Sergij"</fname>
+        <lname>"Chayalovkiy"</lname>
+    </student>
+</group>

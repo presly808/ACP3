@@ -17,7 +17,7 @@ import java.io.IOException;
 public class DomParser {
 
 
-    public static final String TEMP_ARTCODE_XML = "../IDEA_Projects/ACP3/temp/artcode.xml";
+    public static final String TEMP_ARTCODE_XML = "temp/artcode.xml";
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
         show(TEMP_ARTCODE_XML);
