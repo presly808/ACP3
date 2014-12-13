@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by babiy on 02.12.14.
@@ -17,35 +18,26 @@ public class Client {
     private Message msgIn;
     private ChatHistory history;
     private String login;
-    private ClienForm cf = new ClienForm();
+    private ClienForm clienForm = new ClienForm();
+    private static final Logger logger = Logger.getLogger("Client.java");
 
     public Client(String login, Socket socket) {
 
         this.socket = socket;
         this.login = login;
 
-        cf.send.addActionListener(new ActionListener() {
+        clienForm.send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                send(cf.textField.getText());
-                cf.textField.setText("");
+                send(clienForm.textField.getText());
+                clienForm.textField.setText("");
             }
         });
     }
 
-//    public Client(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) {
-//        this.socket = socket;
-//        this.oos = oos;
-//        this.ois = ois;
-//    }
-
-
-
     public Socket getSocket() {
         return this.socket;
     }
-
-
 
     public void run() {
         System.out.println("Do oos and ois");
@@ -53,18 +45,17 @@ public class Client {
             oos = new ObjectOutputStream(this.socket.getOutputStream());
             ois = new ObjectInputStream(this.socket.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error on get Stream", e);
         }
-        System.out.println("Ready");
+        logger.log(Level.INFO, "Client Started");
 
         msgOut = new Message(login, "User join to the chat(Auto-message)");
         try {
             oos.writeObject(msgOut);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error on loggin", e);
         }
-
-        System.out.println("send msg");
+        logger.log(Level.INFO, "Loggin in!");
 
         Thread r = new Thread(new Reciver(ois));
         r.setDaemon(true);
@@ -97,9 +88,9 @@ public class Client {
                     show(obj);
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.log(Level.SEVERE, "IOException on read message", e);
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    logger.log(Level.SEVERE, "ClassException on read message", e);
                 }
 
 
@@ -109,20 +100,23 @@ public class Client {
         private void show(Object obj) {
             if (obj.getClass().equals(Message.class)) {
                 msgIn = (Message) obj;
-                cf.showMessage(msgIn.toString());
+                clienForm.showMessage(msgIn.toString());
             } else {
                 if (obj.getClass().equals(ChatHistory.class)) {
-                    if (history != null) {
+                    /*if (history != null) */{
                         history = (ChatHistory) obj;
+                        System.out.println("Hisstory" + history.getHistory().size());
+
+
                         for (Message h : history.getHistory()) {
-                            cf.showMessage(h.toString());
+                            clienForm.showMessage(h.toString());
                         }
                     }
                 } else if (obj.getClass().equals(Ping.class)) {
                     try {
                         oos.writeObject(new Ping());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        logger.log(Level.SEVERE, "ClassException on sending ping", e);
                     }
                 }
             }

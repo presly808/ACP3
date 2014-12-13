@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class ClienForm extends JFrame{
     private JPanel rootPanel;
     protected JButton send;
-    private JTextPane monitor;
+    private JTextArea monitor;
     private JPanel inputPanel;
     protected JTextField textField;
 
@@ -18,7 +18,8 @@ public class ClienForm extends JFrame{
     public ClienForm (){
         super("SuperChat Client");
         setContentPane(rootPanel);
-        pack();
+        setSize(500,800);
+        monitor.setLineWrap(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }

@@ -18,6 +18,7 @@ public class Server {
     private static UsersList list = new UsersList();
     private static ChatHistory chatHistory = new ChatHistory();
     public static final Logger logger = Logger.getLogger("Server.java");
+    private String[] blackList = Config.BLACK_LIST;
 
 
     public  void start () {
@@ -32,9 +33,9 @@ public class Server {
 
             }
         } catch (SocketException e) {
-            logger.log(Level.SEVERE, "Socket exception on start server", e);
+            logger.log(Level.SEVERE, "Socket exception Listener", e);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "IOException on start server", e);
+            logger.log(Level.SEVERE, "IOException Listener", e);
         }
     }
 
@@ -70,6 +71,13 @@ public class Server {
 
                 message = (Message) inputStream.readObject();
                 login = message.getLogin();
+                for (String l : blackList) {
+                    if (login.equals(l)) {
+                        outputStream.writeObject(new Message("Server-Bot", "The server has blocked you. Goodbye!"));
+                        logger.log(Level.INFO, "User from BlackList" + login);
+                        return;
+                    }
+                }
                 logger.log(Level.INFO, "Started ClientThread for " + login);
 
 

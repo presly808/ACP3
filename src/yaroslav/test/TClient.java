@@ -1,8 +1,6 @@
 package yaroslav.test;
 
-import java.io.BufferedOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -14,14 +12,25 @@ public class TClient {
 
         try{
             Socket fromserver = new Socket("localhost", 3128);
-            BufferedOutputStream bos = new BufferedOutputStream(fromserver.getOutputStream());
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            A obj = new A();
-            oos.writeObject(obj);
-            oos.flush();
-            oos.close();
-            fromserver.close();
+            System.out.println("0");
 
-        }catch(Exception e){}
+
+
+        //   BufferedOutputStream bos = new BufferedOutputStream(fromserver.getOutputStream());
+           ObjectOutputStream oos = new ObjectOutputStream(fromserver.getOutputStream());
+           System.out.println("2");
+
+        //    BufferedInputStream bis = new BufferedInputStream(fromserver.getInputStream());
+            ObjectInputStream ois = new ObjectInputStream(fromserver.getInputStream());
+            System.out.println("1");
+         //  A obj = new A();
+         //  oos.writeObject(obj);
+         //  oos.flush();
+         //  oos.close();
+         //  fromserver.close();
+
+        }catch(Exception e) {
+            e.getStackTrace();
+        }
     }
 }
