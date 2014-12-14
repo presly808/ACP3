@@ -1,4 +1,4 @@
-package proj_jira.dao;
+package ua.artcode.proj_jira.dao;
 
 import proj_jira.data.DataHolder;
 import proj_jira.model.Task;
@@ -6,7 +6,7 @@ import proj_jira.model.Task;
 /**
  * Created by admin on 07.12.2014.
  */
-public class TaskDaoImp implements TaskDao {
+public class TaskDaoImp implements proj_jira.dao.TaskDao {
 
     private DataHolder dataHolder;
 

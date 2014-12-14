@@ -1,6 +1,5 @@
 package proj_jira.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,8 +7,6 @@ import java.util.List;
  */
 public class DataHolder {
 
-    public List data = new ArrayList();
-
+    public List data;
 
 }
-
