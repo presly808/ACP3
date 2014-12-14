@@ -32,7 +32,7 @@ public class ConnectionFactory {
         PASS = properties.getProperty("db.pass");
     }
 
-    public  ConnectionFactory getINSTANCE(){
+    public static ConnectionFactory getINSTANCE(){
         return INSTANSE;
     }
 
