@@ -1,5 +1,12 @@
 package ua.artcode.service;
 
+import ua.artcode.model.Project;
+import ua.artcode.model.State;
+import ua.artcode.model.TaskPriority;
+import ua.artcode.model.User;
+
+import java.util.Date;
+
 /**
  *
  */
@@ -11,8 +18,10 @@ public interface ITaskService {
 
     public void changeTaskState(Integer taskId, Integer state);
 
-    public void addNew(Integer id, String name, Integer desc,
-                       Integer prior, Integer state, Integer toId);
+    public void addNew(int id, String description, int state, int priority,
+                       User author, User executor, Project project, Date createDate, Date endDate,
+                       Date planingHours, Date executingHours);
+
 
 
 }

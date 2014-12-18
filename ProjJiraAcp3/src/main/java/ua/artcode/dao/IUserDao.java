@@ -8,7 +8,7 @@ import ua.artcode.model.User;
 public interface IUserDao {
 
 
-    User find(int id);
+    User find(String login, String pass);
 
     void create(User user);
 

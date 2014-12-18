@@ -13,7 +13,7 @@ import java.util.Properties;
  * Created by Yaroslav on 14.12.2014.
  */
 public class ConnectionFactory {
-    public static final String CLASSPATH_DB_PROPERTIES = "classpath:db.properties";
+    public static final String CLASSPATH_DB_PROPERTIES = "D:\\ArtCodeProj\\ACP3\\ProjJiraAcp3\\src\\main\\resources\\db.properties";
     private static ConnectionFactory INSTANSE = new ConnectionFactory();
     private  final String URL;
     private  final String USER;

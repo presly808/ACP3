@@ -23,13 +23,13 @@ public class IUserDaoTest {
 
     @Test
     public void _1_testAddNewUser(){
-        User user = new User(tempId, "Vania");
+        User user = new User(101, "Vania", "vania", "111", "eee@eee.ee");
         userDao.create(user);
     }
 
     @Test
     public void _2_testFindUser(){
-        Assert.assertNotNull(userDao.find(2));
+        Assert.assertNotNull(userDao.find("byaroslav","111"));
     }
 
 
