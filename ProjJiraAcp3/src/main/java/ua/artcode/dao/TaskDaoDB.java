@@ -5,6 +5,7 @@ import ua.artcode.model.Task;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
@@ -51,6 +52,22 @@ public class TaskDaoDB implements TaskDao {
 
     @Override
     public Task read(Integer id) {
+        try {
+            connection = ConnectionFactory.getINSTANCE().newConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT id, description, state_id, priority_id, author_id,"
+                    + "executor_id,project_id, createDate, endDate, planingHours,executingHours FROM tasks where id=?");
+            ps.setString(1, String.valueOf(id));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Task(rs.getInt("id"), rs.getString("description"), rs.getInt("state_id"), rs.getInt("priority_id"),
+                        rs.getInt("author_id"), rs.getInt("executor_id"), rs.getInt("project_id"), rs.getDate("createDate"),
+                        rs.getDate("endDate"), rs.getDate("planingHours"), rs.getDate("executingHours"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

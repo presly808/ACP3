@@ -22,6 +22,8 @@ public interface ITaskService {
                        User author, User executor, Project project, Date createDate, Date endDate,
                        Date planingHours, Date executingHours);
 
+    public void readTask(int id);
+
 
 
 }

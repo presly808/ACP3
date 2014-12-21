@@ -1,11 +1,9 @@
 package ua.artcode.service;
 
-import ua.artcode.dao.TaskDao;
 import ua.artcode.dao.TaskDaoDB;
-import ua.artcode.dao.TaskDaoImp;
+import ua.artcode.dao.UserDaoDB;
 import ua.artcode.model.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,13 +12,15 @@ import java.util.Date;
 public class TaskServiceImpl implements ITaskService {
 
     private TaskDaoDB taskDaoDB;
+    private UserDaoDB userDaoDB;
 
     public TaskServiceImpl() {
+
     }
 
-    public TaskServiceImpl(TaskDaoDB taskDaoDB
-    ) {
+    public TaskServiceImpl(TaskDaoDB taskDaoDB, UserDaoDB userDaoDB) {
         this.taskDaoDB = taskDaoDB;
+        this.userDaoDB = userDaoDB;
     }
 
     @Override
@@ -43,14 +43,22 @@ public class TaskServiceImpl implements ITaskService {
                        User author, User executor, Project project, Date createDate, Date endDate,
                        Date planingHours, Date executingHours) {
 
-
-
-
-
-        Task task = new Task(id, description, state, priority, author.getId(), executor.getId(), 0,
-                project.getId(), createDate, endDate, planingHours, executingHours, 0);
+        Task task = new Task(id, description, state, priority, author.getId(), executor.getId(),
+                project.getId(), createDate, endDate, planingHours, executingHours);
 
         taskDaoDB.create(task);
 
+    }
+
+    @Override
+    public void readTask(int id) {
+        Task task = taskDaoDB.read(id);
+        User author = userDaoDB.find(task.getAuthor_id());
+        User executor = userDaoDB.find(task.getExecutor_id());
+        System.out.println("Задача:" + task);
+        TaskPriority tp;
+
+        System.out.println("Автор:" + author );
+        System.out.println("Исполнитель:" + executor );
     }
 }

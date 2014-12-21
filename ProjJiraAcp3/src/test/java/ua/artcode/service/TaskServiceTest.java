@@ -21,7 +21,7 @@ public class TaskServiceTest {
 
     @Before
     public void init() {
-        taskService = new TaskServiceImpl(new TaskDaoDB());
+        taskService = new TaskServiceImpl(new TaskDaoDB(),new UserDaoDB());
         userDaoDB = new UserDaoDB();
     }
 
@@ -34,6 +34,12 @@ public class TaskServiceTest {
                 new Date(), new Date());
 
     }
+
+    @Test
+    public void testReadTask(){
+        taskService.readTask(1);
+    }
+
 
 
 }
