@@ -12,7 +12,7 @@
 
         <class>ua.artcode.week5.Author</class>
         <class>ua.artcode.week5.Book</class>
-        <class>ua.artcode.week5.PublishAgency</class>
+        <class>ua.artcode.week5.Agency</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

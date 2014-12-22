@@ -13,7 +13,7 @@ public class TestOneToMany {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_unit");
         EntityManager entityManager = factory.createEntityManager();
 
-        PublishAgency agency = new PublishAgency();
+        Agency agency = new Agency();
         agency.setName("XXX");
         Author author = new Author("Hemenguel", new Date(), true, AuthorType.COMEDY, agency);
         Author author1 = new Author("Hemenguel1", new Date(), true, AuthorType.COMEDY, agency);

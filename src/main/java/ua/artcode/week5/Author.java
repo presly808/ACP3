@@ -29,14 +29,14 @@ public class Author {
 
     @ManyToOne
     @JoinColumn(name = "agency_id",referencedColumnName = "id")
-    private PublishAgency agency;
+    private Agency agency;
 
     public AuthorType getAuthorType() {
         return authorType;
     }
 
 
-    public Author(String name, Date bithDay, boolean isSingle, AuthorType authorType, PublishAgency agency) {
+    public Author(String name, Date bithDay, boolean isSingle, AuthorType authorType, Agency agency) {
         this.name = name;
         this.bithDay = bithDay;
         this.isSingle = isSingle;
@@ -83,11 +83,11 @@ public class Author {
         this.isSingle = isSingle;
     }
 
-    public PublishAgency getAgency() {
+    public Agency getAgency() {
         return agency;
     }
 
-    public void setAgency(PublishAgency agency) {
+    public void setAgency(Agency agency) {
         this.agency = agency;
     }
 
