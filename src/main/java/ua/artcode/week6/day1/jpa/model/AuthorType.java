@@ -1,4 +1,4 @@
-package ua.artcode.week5.day1.jpa.model;
+package ua.artcode.week6.day1.jpa.model;
 
 /**
  * Created by admin on 20.12.2014.

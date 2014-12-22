@@ -1,8 +1,8 @@
-package ua.artcode.week5.day1.jpa.test;
+package ua.artcode.week6.day1.jpa.test;
 
-import ua.artcode.week5.day1.jpa.model.Agency;
-import ua.artcode.week5.day1.jpa.model.Author;
-import ua.artcode.week5.day1.jpa.model.AuthorType;
+import ua.artcode.week6.day1.jpa.model.Agency;
+import ua.artcode.week6.day1.jpa.model.Author;
+import ua.artcode.week6.day1.jpa.model.AuthorType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,14 +21,13 @@ public class TestLazyInit {
 
         EntityManager entityManager = factory.createEntityManager();
 
-        //TODO lazy didnt work, test why
         Agency agency = (Agency) entityManager
                 .createQuery("select a from Agency a where a.id = :id")
                 .setParameter("id", id)
                 .getSingleResult();
 
 
-        for(Author author : agency.getAuthors()){
+        for(Author author : agency.getAuthors()){//in this moment performs lazy loading, when we try try open reference in debug(reference panel) - list init
             System.out.println(author);
         }
     }

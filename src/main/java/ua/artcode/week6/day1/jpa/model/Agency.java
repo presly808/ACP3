@@ -1,7 +1,4 @@
-package ua.artcode.week5.day1.jpa.model;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+package ua.artcode.week6.day1.jpa.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;

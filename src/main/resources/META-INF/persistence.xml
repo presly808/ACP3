@@ -9,9 +9,9 @@
         </description>
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-        <class>ua.artcode.week5.day1.jpa.model.Author</class>
-        <class>ua.artcode.week5.day1.jpa.model.Book</class>
-        <class>ua.artcode.week5.day1.jpa.model.Agency</class>
+        <class>ua.artcode.week6.day1.jpa.model.Author</class>
+        <class>ua.artcode.week6.day1.jpa.model.Book</class>
+        <class>ua.artcode.week6.day1.jpa.model.Agency</class>
 
 
 

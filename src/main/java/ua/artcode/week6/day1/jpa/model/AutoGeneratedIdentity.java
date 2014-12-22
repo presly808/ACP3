@@ -1,4 +1,4 @@
-package ua.artcode.week5.day1.jpa.model;
+package ua.artcode.week6.day1.jpa.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

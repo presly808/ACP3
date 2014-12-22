@@ -1,7 +1,7 @@
-package ua.artcode.week5.day1.jpa.test;
+package ua.artcode.week6.day1.jpa.test;
 
-import ua.artcode.week5.day1.jpa.model.Author;
-import ua.artcode.week5.day1.jpa.model.AuthorType;
+import ua.artcode.week6.day1.jpa.model.Author;
+import ua.artcode.week6.day1.jpa.model.AuthorType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

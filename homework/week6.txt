@@ -1,0 +1,13 @@
+1. JPA (Hibernate)
+    * persistence.xml
+    * mapping via annotations
+    * entity (annotations, lifecycle)
+    * annotations OneToOne, OneToMany, ManyToMany - properties : (fetch, cascade, mappedBy)
+
+    * java.persistence.*
+    * classes : EntityManagerFactory, EntityManager, EntityTransaction, Query
+    * JPQL
+
+2. use JPA(Hibernate) in Simple_Jira
+
+3. Set up Client Server architecture in Simple_Jira
