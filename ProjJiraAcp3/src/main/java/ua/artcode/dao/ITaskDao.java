@@ -5,7 +5,7 @@ import ua.artcode.model.Task;
 /**
  * CRUD  (Create, Read ,Update, delete)
  */
-public interface TaskDao {
+public interface ITaskDao {
 
     void create(Task task);
 

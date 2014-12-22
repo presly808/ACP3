@@ -12,6 +12,7 @@ import ua.artcode.model.User;
  */
 public class IUserDaoTest {
 
+/*
     private static IUserDao userDao;
     private static int tempId;
 
@@ -32,5 +33,6 @@ public class IUserDaoTest {
         Assert.assertNotNull(userDao.find("byaroslav","111"));
     }
 
+*/
 
 }

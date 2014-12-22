@@ -1,3 +1,4 @@
+/*
 package ua.artcode.dao;
 
 import ua.artcode.db.ConnectionFactory;
@@ -9,10 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
-/**
- * Created by Yaroslav on 18.12.2014.
- */
-public class TaskDaoDB implements TaskDao {
+
+
+public class TaskDaoDB implements ITaskDao {
 
     Connection connection = null;
     @Override
@@ -81,3 +81,4 @@ public class TaskDaoDB implements TaskDao {
 
     }
 }
+*/

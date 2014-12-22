@@ -1,13 +1,10 @@
 package ua.artcode.service;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ua.artcode.dao.TaskDaoDB;
-import ua.artcode.dao.UserDaoDB;
-import ua.artcode.data.DataHolder;
-import ua.artcode.model.Project;
-import ua.artcode.model.User;
+import ua.artcode.dao.TaskDaoEntity;
+import ua.artcode.dao.UserDaoEntity;
+import ua.artcode.model.*;
 
 import java.util.Date;
 
@@ -17,21 +14,20 @@ import java.util.Date;
 public class TaskServiceTest {
 
     private ITaskService taskService;
-    private UserDaoDB userDaoDB;
 
     @Before
     public void init() {
-        taskService = new TaskServiceImpl(new TaskDaoDB(),new UserDaoDB());
-        userDaoDB = new UserDaoDB();
+        taskService = new TaskServiceImpl(new TaskDaoEntity(),new UserDaoEntity());
     }
 
     @Test
     public void testAddNewTask() {
-        User author = userDaoDB.find(1);
-        User executor = userDaoDB.find(2);
-
-        taskService.addNew(1, "Opisanie", 1,1, author, executor, new Project(1, "Test"), new Date(), new Date(),
-                new Date(), new Date());
+        String logAuthor = String.valueOf(Math.random() * 100);
+        String logExec = String.valueOf(Math.random() * 100);
+        User author = new User("Slava", logAuthor, "byaroslav@bk.ru");
+        User executor = new User("Oleg", logExec, "oleg@bk.ru");
+        Task task = new Task("Opisanie", TaskState.New, TaskPriority.High, author, executor, new Date(), new Date(), 3, 0);
+        taskService.addNew("Opisanie", TaskState.New, TaskPriority.High, author, executor, new Date(), new Date(), 3, 0);
 
     }
 

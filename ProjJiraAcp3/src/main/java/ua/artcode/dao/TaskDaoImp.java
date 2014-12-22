@@ -6,7 +6,7 @@ import ua.artcode.model.Task;
 /**
  * Created by admin on 07.12.2014.
  */
-public class TaskDaoImp implements TaskDao {
+public class TaskDaoImp implements ITaskDao {
 
     private DataHolder dataHolder;
 

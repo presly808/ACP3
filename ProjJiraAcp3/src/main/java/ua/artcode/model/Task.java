@@ -1,9 +1,6 @@
 package ua.artcode.model;
-
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,46 +12,55 @@ import java.util.List;
 @Table(name = "TASKS")
 public class Task {
     @Id
+    @GeneratedValue
     private int id;
+
     private String description;
-    private int state_id;
-    private int priority_id;
-    private int author_id;
-    private int executor_id;
 
-    private int project_id;
+    @Enumerated(EnumType.ORDINAL)
+    private TaskState state;
+
+    @Enumerated(EnumType.ORDINAL)
+    private TaskPriority priority;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private User author;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "executor_id", referencedColumnName = "id")
+    private User executor;
+
+   // @ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "project_id")
+   // private Project project;
+
+    @ManyToMany(mappedBy="visitTasks")
+    List<User> visitors = new ArrayList<>();
+
     private Date createDate = new Date();
-    private Date endDate = null;
-    private Date planingHours;
-    private Date executingHours;
 
+    private Date endDate = null;
+
+    private int planingHours;
+
+    private int executingHours;
 
 
     public Task() {
     }
-    public Task(int id, String description, int state_id, int priority_id, int author_id, int executor_id,
-                int project_id, Date createDate, Date endDate, Date planingHours, Date executingHours) {
-        this.id = id;
-        this.description = description;
-        this.state_id = state_id;
-        this.priority_id = priority_id;
-        this.author_id = author_id;
-        this.executor_id = executor_id;
 
-        this.project_id = project_id;
+    public Task(String description, TaskState state, TaskPriority priority, User author, User executor,
+                Date createDate, Date endDate, int planingHours, int executingHours) {
+        this.description = description;
+        this.state = state;
+        this.priority = priority;
+        this.author = author;
+        this.executor = executor;
         this.createDate = createDate;
         this.endDate = endDate;
         this.planingHours = planingHours;
         this.executingHours = executingHours;
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -65,47 +71,45 @@ public class Task {
         this.description = description;
     }
 
-    public int getState_id() {
-        return state_id;
+    public TaskState getState() {
+        return state;
     }
 
-    public void setState_id(int state_id) {
-        this.state_id = state_id;
+    public void setState(TaskState state) {
+        this.state = state;
     }
 
-    public int getPriority_id() {
-        return priority_id;
+    public TaskPriority getPriority() {
+        return priority;
     }
 
-    public void setPriority_id(int priority_id) {
-        this.priority_id = priority_id;
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public int getExecutor_id() {
-        return executor_id;
+    public User getExecutor() {
+        return executor;
     }
 
-    public void setExecutor_id(int executor_id) {
-        this.executor_id = executor_id;
+    public void setExecutor(User executor) {
+        this.executor = executor;
     }
 
-
-
-    public int getProject_id() {
-        return project_id;
+/*    public Project getProject() {
+        return project;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
-    }
+    public void setProject(Project project) {
+        this.project = project;
+    }*/
 
     public Date getCreateDate() {
         return createDate;
@@ -123,19 +127,19 @@ public class Task {
         this.endDate = endDate;
     }
 
-    public Date getPlaningHours() {
+    public int getPlaningHours() {
         return planingHours;
     }
 
-    public void setPlaningHours(Date planingHours) {
+    public void setPlaningHours(int planingHours) {
         this.planingHours = planingHours;
     }
 
-    public Date getExecutingHours() {
+    public int getExecutingHours() {
         return executingHours;
     }
 
-    public void setExecutingHours(Date executingHours) {
+    public void setExecutingHours(int executingHours) {
         this.executingHours = executingHours;
     }
 
@@ -144,6 +148,11 @@ public class Task {
         return "Task{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
+                ", state=" + state +
+                ", priority=" + priority +
+                ", author=" + author +
+                ", executor=" + executor +
+                ", visitors=" + visitors +
                 ", createDate=" + createDate +
                 ", endDate=" + endDate +
                 ", planingHours=" + planingHours +

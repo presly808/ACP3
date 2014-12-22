@@ -1,29 +1,49 @@
 package ua.artcode.model;
 
+import com.sun.javafx.beans.IDProperty;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by admin on 07.12.2014.
  */
+@Entity
+@Table(name = "USERS")
 public class User {
 
+    @Id
+    @GeneratedValue
+
     private int id;
+
     private String name;
+    @Column(name = "login", unique = true)
     private String login;
-    private String pass;
+
     private String email;
-    private List<Task> myTasks;
-    private List<Task> visitTasks;
-    private List<Task> createdTasks;
+
+    @OneToMany(mappedBy="executor")
+    private List<Task> myTasks = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name="TASK_VISITORS",
+            joinColumns={@JoinColumn(name="TASK_ID")},
+            inverseJoinColumns={@JoinColumn(name="USER_ID")})
+    private List<Task> visitTasks = new ArrayList<>( );
+
+    @OneToMany(mappedBy="author")
+    private List<Task> createdTasks = new ArrayList<>();
 
 
     public User() {
     }
 
-    public User(int id, String name, String login, String pass, String email) {
+    public User(String name, String login, String email) {
         this.name = name;
         this.login = login;
-        this.pass = pass;
         this.email = email;
         this.id = id;
     }
@@ -50,14 +70,6 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public String getEmail() {
@@ -98,7 +110,6 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
-                ", pass='" + pass + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

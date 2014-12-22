@@ -1,3 +1,4 @@
+/*
 package ua.artcode.view;
 
 import ua.artcode.dao.IUserDao;
@@ -6,9 +7,11 @@ import ua.artcode.model.User;
 
 import java.util.Scanner;
 
+*/
 /**
  * Created by Yaroslav on 14.12.2014.
- */
+ *//*
+
 public class Authorization {
 
     private Scanner scanner = new Scanner(System.in);
@@ -64,3 +67,4 @@ public class Authorization {
     }
 
 }
+*/

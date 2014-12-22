@@ -1,3 +1,4 @@
+/*
 package ua.artcode.dao;
 
 import ua.artcode.db.ConnectionFactory;
@@ -8,9 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+*/
 /**
  * Created by admin on 14.12.2014.
- */
+ *//*
+
 public class UserDaoDB implements IUserDao {
 
     @Override
@@ -92,3 +95,4 @@ public class UserDaoDB implements IUserDao {
         }
     }
 }
+*/
