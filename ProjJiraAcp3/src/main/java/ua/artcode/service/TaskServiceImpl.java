@@ -4,7 +4,9 @@ import ua.artcode.dao.TaskDaoEntity;
 import ua.artcode.dao.UserDaoEntity;
 import ua.artcode.model.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by admin on 07.12.2014.
@@ -24,19 +26,19 @@ public class TaskServiceImpl implements ITaskService {
         this.userDaoEntity = userDaoEntity;
     }
 
-    @Override
-    public void split(Integer taskId) {
 
+    @Override
+    public void redirect(Integer taskId, User executor) {
+        Task task = taskDaoEntity.read(taskId);
+        task.setExecutor(executor);
+        taskDaoEntity.update(task);
     }
 
     @Override
-    public void redirect(Integer taskId, Integer userId) {
-
-    }
-
-    @Override
-    public void changeTaskState(Integer taskId, Integer state) {
-
+    public void changeTaskState(Integer taskId, TaskState state) {
+        Task task = taskDaoEntity.read(taskId);
+        task.setState(state);
+        taskDaoEntity.update(task);
     }
 
     @Override
@@ -55,5 +57,14 @@ public class TaskServiceImpl implements ITaskService {
     public void readTask(int id) {
         Task task = taskDaoEntity.read(id);
         System.out.println(task);
+    }
+
+    @Override
+    public void showTasks(Date begin, Date end) {
+        List<Task> list = new ArrayList<>();
+        list = taskDaoEntity.showTasks(begin, end);
+        for (Task t : list) {
+            System.out.println(t);
+        }
     }
 }

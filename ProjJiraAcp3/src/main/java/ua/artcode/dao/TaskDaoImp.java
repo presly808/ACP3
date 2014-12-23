@@ -3,6 +3,9 @@ package ua.artcode.dao;
 import ua.artcode.data.DataHolder;
 import ua.artcode.model.Task;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by admin on 07.12.2014.
  */
@@ -28,12 +31,17 @@ public class TaskDaoImp implements ITaskDao {
     }
 
     @Override
-    public boolean update(Integer id, Task changed) {
+    public boolean update(Task changed) {
         return false;
     }
 
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public List<Task> showTasks(Date begin, Date end) {
+        return null;
     }
 }

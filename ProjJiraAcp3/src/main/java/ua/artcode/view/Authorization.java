@@ -1,24 +1,23 @@
-/*
 package ua.artcode.view;
 
-import ua.artcode.dao.IUserDao;
-import ua.artcode.dao.UserDaoDB;
 import ua.artcode.model.User;
+import ua.artcode.service.Registration;
 
 import java.util.Scanner;
 
-*/
-/**
- * Created by Yaroslav on 14.12.2014.
- *//*
+
+
+
+
 
 public class Authorization {
 
     private Scanner scanner = new Scanner(System.in);
-    private IUserDao dao = new UserDaoDB();
-    private User user;
+    private User user = null;
+    private Registration registration = new Registration();
 
-    public User mainMenu(){
+
+    public void mainMenu(){
         System.out.println("Добрый день!");
         System.out.println("Для входа введите       - 1.");
         System.out.println("Для регистрации введите - 2.");
@@ -28,11 +27,11 @@ public class Authorization {
 
         switch (choice) {
             case 1: {
-                user = enterMenu();
+                enterMenu();
                 break;
             }
             case 2:{
-                user = registerMenu();
+                registerMenu();
                 break;
             }
             case 0:{
@@ -40,11 +39,11 @@ public class Authorization {
             }
         }
 
-        return user;
+
 
     }
 
-    private User registerMenu() {
+    private void registerMenu() {
         System.out.println("Введите имя:");
         String name = scanner.next();
         System.out.println("Введите логин:");
@@ -53,18 +52,18 @@ public class Authorization {
         String pass = scanner.next();
         System.out.println("Введите e-mail:");
         String email = scanner.next();
-        User tmpUser = new User(0, name, login, pass, email);
-        dao.create(tmpUser);
-        return dao.find(login, pass);
+        user = registration.RegisterNewUser(login, pass, name, email);
+
+
     }
 
-    private User enterMenu() {
+    private void enterMenu() {
         System.out.println("Введите логин:");
         String login = scanner.next();
         System.out.println("Введите пароль:");
         String pass = scanner.next();
-        return dao.find(login, pass);
+        user =  registration.Autofication(login, pass);
     }
 
 }
-*/
+

@@ -2,6 +2,9 @@ package ua.artcode.dao;
 
 import ua.artcode.model.Task;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * CRUD  (Create, Read ,Update, delete)
  */
@@ -11,8 +14,10 @@ public interface ITaskDao {
 
     Task read(Integer id);
 
-    boolean update(Integer id, Task changed);
+    boolean update(Task changed);
 
     void delete(Integer id);
+
+    List<Task> showTasks(Date begin, Date end);
 
 }

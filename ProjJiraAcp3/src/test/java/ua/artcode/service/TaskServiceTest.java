@@ -6,6 +6,8 @@ import ua.artcode.dao.TaskDaoEntity;
 import ua.artcode.dao.UserDaoEntity;
 import ua.artcode.model.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -22,10 +24,8 @@ public class TaskServiceTest {
 
     @Test
     public void testAddNewTask() {
-        String logAuthor = String.valueOf(Math.random() * 100);
-        String logExec = String.valueOf(Math.random() * 100);
-        User author = new User("Slava", logAuthor, "byaroslav@bk.ru");
-        User executor = new User("Oleg", logExec, "oleg@bk.ru");
+        User author = new User("Slava", "byaroslav@bk.ru");
+        User executor = new User("Oleg", "oleg@bk.ru");
         Task task = new Task("Opisanie", TaskState.New, TaskPriority.High, author, executor, new Date(), new Date(), 3, 0);
         taskService.addNew("Opisanie", TaskState.New, TaskPriority.High, author, executor, new Date(), new Date(), 3, 0);
 
@@ -36,6 +36,32 @@ public class TaskServiceTest {
         taskService.readTask(1);
     }
 
+    @Test
+    public void testChangeTaskState() {
+        taskService.changeTaskState(2,TaskState.Close);
+        taskService.readTask(2);
+    }
 
+    @Test
+    public void testRedirect() {
+        User executor = new User("xxx", "log@bk.ru");
+        taskService.redirect(1,executor);
+
+    }
+
+    @Test
+    public void TestShowTask() {
+        Date b = null;
+        Date e = null;
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            b = ft.parse("2014-01-01");
+            e = ft.parse("2014-12-23");
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        taskService.showTasks(b, e);
+    }
 
 }

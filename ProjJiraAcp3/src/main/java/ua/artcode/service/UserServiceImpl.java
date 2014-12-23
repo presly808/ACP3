@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void addUSer(String name, String login, String email) {
-        userDaoEntity.create(new User(name, login, email));
+        userDaoEntity.create(new User(name, email));
     }
 
     @Override

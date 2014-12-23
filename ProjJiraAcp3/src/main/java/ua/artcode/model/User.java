@@ -20,8 +20,6 @@ public class User {
     private int id;
 
     private String name;
-    @Column(name = "login", unique = true)
-    private String login;
 
     private String email;
 
@@ -41,9 +39,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, String login, String email) {
+    public User(String name, String email) {
         this.name = name;
-        this.login = login;
         this.email = email;
         this.id = id;
     }
@@ -62,14 +59,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getEmail() {
@@ -109,7 +98,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
