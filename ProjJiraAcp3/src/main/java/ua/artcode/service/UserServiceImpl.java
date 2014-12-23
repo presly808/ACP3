@@ -4,6 +4,8 @@ import ua.artcode.dao.UserDaoEntity;
 import ua.artcode.model.Task;
 import ua.artcode.model.User;
 
+import java.util.List;
+
 /**
  * Created by Yaroslav on 22.12.2014.
  */
@@ -22,20 +24,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void read(int id) {
-        User user = userDaoEntity.find(id);
-        System.out.println(user);
-        System.out.println("----------------My task--------------------");
-        if(user.getMyTasks().size()>0) {
-            for (Task t : user.getMyTasks()) {
-                System.out.println(t);
-            }
-        }
-        System.out.println("--------------CreatedTask------------------");
-        if(user.getCreatedTasks().size()>0) {
-            for (Task t : user.getCreatedTasks()) {
-                System.out.println(t);
-            }
+    public User read(int id) {
+        return  userDaoEntity.find(id);
+    }
+
+    @Override
+    public void showAllUsers() {
+        List<User> users = userDaoEntity.showUsers("SELECT u FROM User as u");
+        for (User u : users) {
+            System.out.println(u);
         }
 
     }

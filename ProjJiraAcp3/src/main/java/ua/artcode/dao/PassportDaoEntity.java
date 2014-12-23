@@ -20,11 +20,12 @@ public class PassportDaoEntity {
     }
 
     public Passport GetPassport(String log, String pass) {
-        Passport res = null;
         Query query = entityManager.createQuery("SELECT p FROM Passport as p where p.login = :log and  p.pass = :pass");
         query.setParameter("log", log);
         query.setParameter("pass", pass);
+
         List<Passport> list = query.getResultList();
-        return list.get(0);
+
+        return list.size()>0 ? list.get(0):null;
     }
 }

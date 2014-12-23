@@ -1,9 +1,13 @@
 package ua.artcode.dao;
 
 import ua.artcode.db.EntityFactoryJira;
+import ua.artcode.model.Task;
 import ua.artcode.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Yaroslav on 22.12.2014.
@@ -24,5 +28,14 @@ public class UserDaoEntity implements IUserDao {
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public List<User> showUsers(String select) {
+
+            Query query  = entityManager.createQuery(select);
+            List<User> list = query.getResultList();
+            return list;
+
     }
 }

@@ -17,8 +17,8 @@ public class Authorization {
     private Registration registration = new Registration();
 
 
-    public void mainMenu(){
-        System.out.println("Добрый день!");
+    public User mainMenu(){
+
         System.out.println("Для входа введите       - 1.");
         System.out.println("Для регистрации введите - 2.");
         System.out.println("Для выхода -            - 0.");
@@ -39,7 +39,7 @@ public class Authorization {
             }
         }
 
-
+    return user;
 
     }
 

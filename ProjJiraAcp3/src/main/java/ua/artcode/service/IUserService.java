@@ -1,10 +1,12 @@
 package ua.artcode.service;
 
+import ua.artcode.model.User;
+
 /**
  * Created by Yaroslav on 22.12.2014.
  */
 public interface IUserService {
     public void addUSer (String name,String login,String email);
-    public void read(int id);
-
+    public User read(int id);
+    public void showAllUsers();
 }

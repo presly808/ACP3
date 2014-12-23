@@ -14,7 +14,7 @@ public class Passport {
     @Column(unique = true)
     private String login;
     private String pass;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     User user;
 
     public Passport() {
