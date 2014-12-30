@@ -7,11 +7,11 @@ import ua.artcode.model.User;
 /**
  * Created by Yaroslav on 23.12.2014.
  */
-public class Registration {
+public class RegService {
     PassportDaoEntity passportDaoEntity = new PassportDaoEntity();
     Passport passport = null;
     User user = null;
-    public User Autofication(String login, String password) {
+    public User autofication(String login, String password) {
         passport = passportDaoEntity.GetPassport(login, password);
         if (passport != null) {
             user = passport.getUser();
@@ -19,7 +19,7 @@ public class Registration {
         return user;
     }
 
-    public User RegisterNewUser(String login, String password, String name, String email) {
+    public User registerNewUser(String login, String password, String name, String email) {
         user = new User(name, email);
         passport = new Passport(login, password, user);
         passportDaoEntity.AddPassport(passport);

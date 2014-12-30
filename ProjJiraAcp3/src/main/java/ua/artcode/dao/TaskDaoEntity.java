@@ -43,11 +43,8 @@ public class TaskDaoEntity implements ITaskDao {
     }
 
     @Override
-    public List<Task> showTasks(Date begin, Date end) {
-        Query query  = entityManager.createQuery("SELECT tasks FROM Task " +
-                "as tasks where tasks.createDate > :begin and tasks.createDate < :end ");
-        query.setParameter("begin", begin);
-        query.setParameter("end", end);
+    public List<Task> showTasks(String queryString) {
+        Query query  = entityManager.createQuery(queryString);
         List<Task> list = query.getResultList();
         return list;
 

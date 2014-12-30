@@ -41,7 +41,9 @@ public class TaskDaoImp implements ITaskDao {
     }
 
     @Override
-    public List<Task> showTasks(Date begin, Date end) {
+    public List<Task> showTasks(String queryString) {
         return null;
     }
+
+
 }

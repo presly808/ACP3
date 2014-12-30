@@ -14,12 +14,12 @@ import java.util.Date;
  * Created by admin on 13.12.2014.
  */
 public class TaskServiceTest {
-
+/*
     private ITaskService taskService;
 
     @Before
     public void init() {
-        taskService = new TaskServiceImpl(new TaskDaoEntity(),new UserDaoEntity());
+        taskService = new TaskServiceImpl(new TaskDaoEntity());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TaskServiceTest {
             ex.printStackTrace();
         }
 
-        taskService.showTasks(b, e);
+        taskService.showAllTasks();
     }
-
+*/
 }

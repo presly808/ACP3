@@ -2,7 +2,6 @@ package ua.artcode.dao;
 
 import ua.artcode.model.Task;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +17,6 @@ public interface ITaskDao {
 
     void delete(Integer id);
 
-    List<Task> showTasks(Date begin, Date end);
+    List<Task> showTasks(String queryString);
 
 }

@@ -1,7 +1,7 @@
 package ua.artcode.view;
 
 import ua.artcode.model.User;
-import ua.artcode.service.Registration;
+import ua.artcode.service.RegService;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class Authorization {
 
     private Scanner scanner = new Scanner(System.in);
     private User user = null;
-    private Registration registration = new Registration();
+    private RegService regService = new RegService();
 
 
     public User mainMenu(){
@@ -52,7 +52,7 @@ public class Authorization {
         String pass = scanner.next();
         System.out.println("Введите e-mail:");
         String email = scanner.next();
-        user = registration.RegisterNewUser(login, pass, name, email);
+        user = regService.registerNewUser(login, pass, name, email);
 
 
     }
@@ -62,7 +62,11 @@ public class Authorization {
         String login = scanner.next();
         System.out.println("Введите пароль:");
         String pass = scanner.next();
-        user =  registration.Autofication(login, pass);
+        user =  regService.autofication(login, pass);
+        if (user == null) {
+            System.out.println("Не верный логин или пароль!!! Введит еще раз!!!");
+            enterMenu();
+        }
     }
 
 }

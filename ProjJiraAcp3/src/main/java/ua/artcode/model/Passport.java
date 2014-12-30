@@ -7,6 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "PASSPORTS")
+
 public class Passport {
     @Id
     @GeneratedValue

@@ -1,7 +1,6 @@
 package ua.artcode.service;
 
 import ua.artcode.dao.UserDaoEntity;
-import ua.artcode.model.Task;
 import ua.artcode.model.User;
 
 import java.util.List;
@@ -29,11 +28,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void showAllUsers() {
+    public List<User> showAllUsers() {
         List<User> users = userDaoEntity.showUsers("SELECT u FROM User as u");
-        for (User u : users) {
-            System.out.println(u);
-        }
-
+        return users;
     }
 }

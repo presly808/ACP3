@@ -1,11 +1,9 @@
 package ua.artcode.service;
 
-import ua.artcode.model.Project;
-import ua.artcode.model.TaskPriority;
-import ua.artcode.model.TaskState;
-import ua.artcode.model.User;
+import ua.artcode.model.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -23,7 +21,7 @@ public interface ITaskService {
 
     public void readTask(int id);
 
-    public void showTasks(Date begin, Date end);
+    public List<Task> showAllTasks();
 
 
 

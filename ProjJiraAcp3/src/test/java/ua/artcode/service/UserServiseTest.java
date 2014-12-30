@@ -10,7 +10,7 @@ import ua.artcode.dao.UserDaoEntity;
  */
 public class UserServiseTest {
     private IUserService userService;
-
+/*
     @Before
     public void init() {
         userService = new UserServiceImpl(new UserDaoEntity());
@@ -25,4 +25,5 @@ public class UserServiseTest {
     public void readUserTest(){
         userService.read(1);
     }
+*/
 }

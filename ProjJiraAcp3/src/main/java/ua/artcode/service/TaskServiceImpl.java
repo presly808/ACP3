@@ -1,7 +1,6 @@
 package ua.artcode.service;
 
 import ua.artcode.dao.TaskDaoEntity;
-import ua.artcode.dao.UserDaoEntity;
 import ua.artcode.model.*;
 
 import java.util.ArrayList;
@@ -15,15 +14,13 @@ public class TaskServiceImpl implements ITaskService {
 
 
     private TaskDaoEntity taskDaoEntity;
-    private UserDaoEntity userDaoEntity;
 
     public TaskServiceImpl() {
 
     }
 
-    public TaskServiceImpl(TaskDaoEntity taskDaoEntity, UserDaoEntity userDaoEntity) {
+    public TaskServiceImpl(TaskDaoEntity taskDaoEntity) {
         this.taskDaoEntity = taskDaoEntity;
-        this.userDaoEntity = userDaoEntity;
     }
 
 
@@ -60,11 +57,12 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public void showTasks(Date begin, Date end) {
-        List<Task> list = new ArrayList<>();
-        list = taskDaoEntity.showTasks(begin, end);
+    public List<Task> showAllTasks() {
+        List<Task> list = new ArrayList<Task>();
+        list = taskDaoEntity.showTasks("SELECT t FROM Task as t");
         for (Task t : list) {
             System.out.println(t);
         }
+        return list;
     }
 }

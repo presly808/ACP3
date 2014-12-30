@@ -36,7 +36,7 @@ public class Task {
    // private Project project;
 
     @ManyToMany(mappedBy="visitTasks")
-    List<User> visitors = new ArrayList<>();
+    List<User> visitors = new ArrayList<User>();
 
     private Date createDate = new Date();
 

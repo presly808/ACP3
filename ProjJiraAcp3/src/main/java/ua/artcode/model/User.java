@@ -19,21 +19,23 @@ public class User {
 
     private int id;
 
+
     private String name;
+
 
     private String email;
 
     @OneToMany(mappedBy="executor")
-    private List<Task> myTasks = new ArrayList<>();
+    private List<Task> myTasks = new ArrayList<Task>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name="TASK_VISITORS",
             joinColumns={@JoinColumn(name="TASK_ID")},
             inverseJoinColumns={@JoinColumn(name="USER_ID")})
-    private List<Task> visitTasks = new ArrayList<>( );
+    private List<Task> visitTasks = new ArrayList<Task>( );
 
     @OneToMany(mappedBy="author")
-    private List<Task> createdTasks = new ArrayList<>();
+    private List<Task> createdTasks = new ArrayList<Task>();
 
 
     public User() {

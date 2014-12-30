@@ -5,7 +5,7 @@
   <groupId>ua.artcode</groupId>
   <artifactId>SimpleJira</artifactId>
   <version>1.0</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>SimpleJira</name>
   <url>http://maven.apache.org</url>
@@ -45,5 +45,33 @@
       <version>1.0.1.Final</version>
     </dependency>
 
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+
   </dependencies>
+
+
+    <build>
+
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>2.1</version>
+          <configuration>
+              <url>http://localhost:8080/manager/text</url>
+              <server>tomcat</server>
+
+          </configuration>
+        </plugin>
+
+      </plugins>
+
+    </build>
+
+
 </project>
