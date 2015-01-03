@@ -9,6 +9,7 @@ import ua.artcode.service.IUserService;
 import ua.artcode.service.TaskServiceImpl;
 import ua.artcode.service.UserServiceImpl;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +23,8 @@ import java.util.List;
 /**
  * Created by Yaroslav on 28.12.2014.
  */
-@WebServlet(value = "/addTaskController")
-public class addTaskController extends HttpServlet {
+@WebServlet(value = "/app/addTaskController")
+public class AddTaskController1 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ITaskService taskService = (TaskServiceImpl) getServletContext().getAttribute("taskService");
@@ -36,16 +37,21 @@ public class addTaskController extends HttpServlet {
         Integer execID = Integer.parseInt((String) req.getParameter("executor"));
         User exec = userService.read(execID);
         User client = (User) req.getSession().getAttribute("client");
-        Integer pH = Integer.parseInt((String) req.getParameter("pHours"));
-
+        String spH = (String) req.getParameter("pHours");
+        Integer pH = 0;
+        if (spH!=null) {
+            pH = Integer.parseInt(spH);
+        }
 
         taskService.addNew(desc, TaskState.New, prority, client, exec, new Date(), null, pH, 0);
         PrintWriter pw = resp.getWriter();
         List<Task> taskList = taskService.showAllTasks();
-        for (Task t : taskList) {
-            pw.println(t);
-        }
-        pw.close();
+        req.setAttribute("Tasks",taskList);
+
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/view_tasks.jsp");
+        rd.forward(req,resp);
+
+
 
     }
 
