@@ -19,9 +19,11 @@ public interface ITaskService {
                        User author, User executor, Date createDate, Date endDate,
                        int planingHours, int executingHours);
 
-    public void readTask(int id);
+    public Task readTask(int id);
 
     public List<Task> showAllTasks();
+
+    public void taskUpdate(Task task);
 
 
 

@@ -20,9 +20,12 @@ public class RegService {
     }
 
     public User registerNewUser(String login, String password, String name, String email) {
-        user = new User(name, email);
-        passport = new Passport(login, password, user);
-        passportDaoEntity.AddPassport(passport);
-        return user;
+        if (passportDaoEntity.isLogin(login)) {
+            user = new User(name, email);
+            passport = new Passport(login, password, user);
+            passportDaoEntity.AddPassport(passport);
+            return user;
+        }
+        return null;
     }
 }

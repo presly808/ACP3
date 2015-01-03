@@ -143,6 +143,10 @@ public class Task {
         this.executingHours = executingHours;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Task{" +

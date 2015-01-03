@@ -51,9 +51,9 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public void readTask(int id) {
-        Task task = taskDaoEntity.read(id);
-        System.out.println(task);
+    public Task readTask(int id) {
+
+        return taskDaoEntity.read(id);
     }
 
     @Override
@@ -64,5 +64,10 @@ public class TaskServiceImpl implements ITaskService {
             System.out.println(t);
         }
         return list;
+    }
+
+    @Override
+    public void taskUpdate(Task task) {
+        taskDaoEntity.update(task);
     }
 }

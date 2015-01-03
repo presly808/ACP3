@@ -5,6 +5,7 @@ import ua.artcode.service.RegService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import java.io.PrintWriter;
 /**
  * Created by Yaroslav on 27.12.2014.
  */
+@WebServlet(value = "/app/reg")
 public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,10 +24,20 @@ public class Registration extends HttpServlet {
         if (req.getParameter("pass").equals(req.getParameter("pass2"))) {
             User user = regService.registerNewUser(req.getParameter("login"), req.getParameter("pass"), req.getParameter("name"),
                     req.getParameter("email"));
-            HttpSession session = req.getSession(true);
-            session.setAttribute("client", user);
-            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/main_menu.jsp");
-            rd.forward(req, resp);
+            if (user != null) {
+                HttpSession session = req.getSession(true);
+                session.setAttribute("client", user);
+                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/home.jsp");
+                rd.forward(req, resp);
+            }else {
+                PrintWriter pw = resp.getWriter();
+                pw.println("Неверно заполнены поля или логин уже занят. ");
+                pw.flush();
+                pw.close();
+            }
+
+
+
         }
 
     }

@@ -1,4 +1,4 @@
-package ua.artcode;
+package ua.artcode.listner;
 
 import ua.artcode.dao.TaskDaoEntity;
 import ua.artcode.dao.UserDaoEntity;
@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebListener;
  * Created by Yaroslav on 28.12.2014.
  */
 @WebListener
-public class listener implements ServletContextListener {
+public class InitListner implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         sce.getServletContext().setAttribute("taskService",new TaskServiceImpl(new TaskDaoEntity()));

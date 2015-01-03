@@ -28,4 +28,11 @@ public class PassportDaoEntity {
 
         return list.size()>0 ? list.get(0):null;
     }
+
+    public boolean isLogin(String login) {
+        Query query = entityManager.createQuery("SELECT p FROM Passport as p where p.login = :log");
+        query.setParameter("log", login);
+        List<Passport> list = query.getResultList();
+        return list.size() > 0 ? false : true;
+    }
 }
