@@ -24,7 +24,7 @@ import java.util.List;
  * Created by Yaroslav on 28.12.2014.
  */
 @WebServlet(value = "/app/addTaskController")
-public class AddTaskController1 extends HttpServlet {
+public class AddTaskController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ITaskService taskService = (TaskServiceImpl) getServletContext().getAttribute("taskService");
