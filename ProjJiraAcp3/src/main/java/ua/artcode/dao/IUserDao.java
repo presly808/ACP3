@@ -16,5 +16,6 @@ public interface IUserDao {
 
     List<User> showUsers(String select);
 
+    public boolean userUpdate(User user);
 
 }

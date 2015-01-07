@@ -4,6 +4,7 @@ import ua.artcode.db.EntityFactoryJira;
 import ua.artcode.model.Task;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ public class TaskDaoEntity implements ITaskDao {
     @Override
     public boolean update(Task changed) {
         entityManager.getTransaction().begin();
-        entityManager.merge(changed);
+        entityManager.persist(changed);
         entityManager.getTransaction().commit();
         return true;
     }

@@ -1,16 +1,19 @@
 <%@ page import="ua.artcode.model.User" %>
-
 <%User client = (User)session.getAttribute("client");%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
+
     <title>Джира</title>
     <style>
+
         #header {
             background-color:darkgreen;
             color:white;
             text-align:center;
             padding:5px;
+
         }
         #nav {
             line-height:30px;
@@ -21,7 +24,7 @@
             padding:5px;
         }
         #section {
-            width:350px;
+            width:700px;
             float:left;
             padding:10px;
         }

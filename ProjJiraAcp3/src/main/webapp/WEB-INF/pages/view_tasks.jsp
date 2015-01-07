@@ -1,10 +1,8 @@
 <%@ page import="ua.artcode.model.Task" %>
 <%@ page import="java.util.List" %>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%List<Task> tasks = (List<Task>)request.getAttribute("Tasks");%>
-
 <%@include file="main_menu.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <div id="section">
 <p><b>Спиок задач:</b></p>
 <table border="1">

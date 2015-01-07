@@ -2,9 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ua.artcode.service.UserServiceImpl" %>
 <%@ page import="ua.artcode.model.Task" %>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="main_menu.jsp"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <% Task task = (Task) request.getAttribute("task");%>
 
 <div id="section">
@@ -13,9 +12,7 @@
 <form method="post" action="/app/editTaskController">
 <input type="hidden" name="id" value="<%=task.getId()%>">
   Описание задачи:<br>
-  <textarea name="desc" rows="25" cols="100">
-   <%=task.getDescription()%>
-  </textarea>
+  <textarea name="desc" rows="25" cols="100"><%=task.getDescription()%></textarea>
   <br>
   Приоритет: <br>
   <select name="taskPriority" value ="0" >
@@ -48,7 +45,7 @@
     </select>
     <br>
   Кол-во запланированых часов:
-  <input type="text" name="pHours" value=" <%=task.getPlaningHours()%>">
+  <input type="text" name="pHours" value="<%=task.getPlaningHours()%>">
   <br>
   Кол-во использованных часов:
   <input type="text" name="eHours" value="">

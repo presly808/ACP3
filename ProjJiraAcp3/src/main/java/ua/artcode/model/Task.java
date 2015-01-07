@@ -2,6 +2,7 @@ package ua.artcode.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class Task {
    // @JoinColumn(name = "project_id")
    // private Project project;
 
-    @ManyToMany(mappedBy="visitTasks")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy="visitTasks")
     List<User> visitors = new ArrayList<User>();
 
     private Date createDate = new Date();
@@ -45,6 +46,9 @@ public class Task {
     private int planingHours;
 
     private int executingHours;
+
+    @OneToMany (cascade = CascadeType.ALL,mappedBy = "task")
+    private List<Comment> comments;
 
 
     public Task() {
@@ -145,6 +149,18 @@ public class Task {
 
     public int getId() {
         return id;
+    }
+
+    public List<User> getVisitors() {
+        return visitors;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

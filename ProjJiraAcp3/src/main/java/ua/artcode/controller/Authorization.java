@@ -34,10 +34,8 @@ public class Authorization extends HttpServlet {
 
         }
 
-        PrintWriter pw = resp.getWriter();
-        pw.println("Не верный логин или пароль");
-        pw.flush();
-        pw.close();
+        RequestDispatcher rd = req.getRequestDispatcher("/err.html");
+        rd.forward(req, resp);
 
     }
 

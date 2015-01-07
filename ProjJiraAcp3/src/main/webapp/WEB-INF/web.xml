@@ -15,6 +15,7 @@
     <servlet>
         <servlet-name>Registration</servlet-name>
         <servlet-class>ua.artcode.controller.Registration</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
@@ -23,6 +24,7 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.htm</welcome-file>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
+
 </web-app>

@@ -30,10 +30,8 @@ public class Registration extends HttpServlet {
                 RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/home.jsp");
                 rd.forward(req, resp);
             }else {
-                PrintWriter pw = resp.getWriter();
-                pw.println("Неверно заполнены поля или логин уже занят. ");
-                pw.flush();
-                pw.close();
+                RequestDispatcher rd = req.getRequestDispatcher("/err.html");
+                rd.forward(req, resp);
             }
 
 

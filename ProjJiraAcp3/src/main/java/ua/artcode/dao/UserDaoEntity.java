@@ -38,4 +38,12 @@ public class UserDaoEntity implements IUserDao {
             return list;
 
     }
+
+    @Override
+    public boolean userUpdate(User user) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+        return true;
+    }
 }

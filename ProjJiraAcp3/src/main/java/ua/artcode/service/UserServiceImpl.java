@@ -32,4 +32,8 @@ public class UserServiceImpl implements IUserService {
         List<User> users = userDaoEntity.showUsers("SELECT u FROM User as u");
         return users;
     }
+
+    public void userUpdate(User user) {
+        userDaoEntity.userUpdate(user);
+    }
 }

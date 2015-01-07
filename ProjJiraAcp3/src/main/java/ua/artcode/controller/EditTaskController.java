@@ -27,7 +27,7 @@ import java.util.List;
 public class EditTaskController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
         ITaskService taskService = (TaskServiceImpl) getServletContext().getAttribute("taskService");
         IUserService userService = (UserServiceImpl) getServletContext().getAttribute("userService");
         Task task = taskService.readTask(Integer.parseInt(req.getParameter("id")));
@@ -44,10 +44,10 @@ public class EditTaskController extends HttpServlet {
         Integer pH = 0;
         Integer eH = 0;
 
-        if (spH != null) {
+        if (spH != null && spH.length()>0) {
             pH = Integer.parseInt(spH);
         }
-        if (seH != null) {
+        if (seH != null && seH.length()>0) {
             eH = Integer.parseInt(seH);
         }
 
