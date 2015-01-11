@@ -1,6 +1,6 @@
 <%@ page import="ua.artcode.model.Task" %>
-<%@ page import="java.util.List" %>
-<%List<Task> tasks = (List<Task>)request.getAttribute("Tasks");%>
+<%@ page import="java.util.Set" %>
+<%Set<Task> tasks = (Set<Task>)request.getAttribute("Tasks");%>
 <%@include file="main_menu.jsp"%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <div id="section">
@@ -30,5 +30,6 @@
  <% }%>
 </table>
   </div>
+<div id="nav"/>
 </body>
 </html>

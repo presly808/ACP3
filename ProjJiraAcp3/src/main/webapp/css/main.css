@@ -1,0 +1,34 @@
+#header {
+    background-color: darkgreen;
+    color: white;
+    text-align: center;
+    padding: 5px;
+
+}
+
+#nav {
+    line-height:30px;
+    background-color:darkgreen;
+    width:300px;
+    float:right;
+    padding:5px;
+}
+#section {
+    float:left;
+    padding:10px;
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;
+}
+
+a:link{
+    color: crimson;
+}
+
+a:visited{
+    color: crimson;
+}

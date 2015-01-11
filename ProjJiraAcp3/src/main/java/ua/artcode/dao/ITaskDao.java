@@ -3,6 +3,7 @@ package ua.artcode.dao;
 import ua.artcode.model.Task;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * CRUD  (Create, Read ,Update, delete)
@@ -17,6 +18,6 @@ public interface ITaskDao {
 
     void delete(Integer id);
 
-    List<Task> showTasks(String queryString);
+    Set<Task> showTasks(String queryString);
 
 }

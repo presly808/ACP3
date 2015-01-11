@@ -1,5 +1,6 @@
 package ua.artcode.controller;
 
+import org.apache.log4j.Logger;
 import ua.artcode.model.Task;
 import ua.artcode.model.TaskPriority;
 import ua.artcode.model.TaskState;
@@ -19,12 +20,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Yaroslav on 28.12.2014.
  */
 @WebServlet(value = "/app/addTaskController")
 public class AddTaskController extends HttpServlet {
+    private static final Logger logger = Logger.getLogger("ua.artcode.controller.AddTaskController");
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -46,11 +49,12 @@ public class AddTaskController extends HttpServlet {
 
         taskService.addNew(desc, TaskState.New, prority, client, exec, new Date(), null, pH, 0);
         PrintWriter pw = resp.getWriter();
-        List<Task> taskList = taskService.showAllTasks();
+        Set<Task> taskList = taskService.showAllTasks();
         req.setAttribute("Tasks",taskList);
 
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/view_tasks.jsp");
         rd.forward(req,resp);
+        logger.info(client.getName() + " add new task");
 
 
 

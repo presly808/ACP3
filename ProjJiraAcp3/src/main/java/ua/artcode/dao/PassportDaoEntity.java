@@ -20,19 +20,17 @@ public class PassportDaoEntity {
     }
 
     public Passport GetPassport(String log, String pass) {
-        Query query = entityManager.createQuery("SELECT p FROM Passport as p where p.login = :log and  p.pass = :pass");
+        Query query = entityManager.createQuery("SELECT p FROM Passport as p where p.login =:log and p.pass = :pass");
         query.setParameter("log", log);
         query.setParameter("pass", pass);
-
         List<Passport> list = query.getResultList();
-
         return list.size()>0 ? list.get(0):null;
     }
 
-    public boolean isLogin(String login) {
+    public Passport isLogin(String login) {
         Query query = entityManager.createQuery("SELECT p FROM Passport as p where p.login = :log");
         query.setParameter("log", login);
         List<Passport> list = query.getResultList();
-        return list.size() > 0 ? false : true;
+        return list.size() > 0 ? list.get(0) : null;
     }
 }

@@ -1,9 +1,13 @@
 package ua.artcode.listner;
 
+import ua.artcode.dao.ITaskDao;
+import ua.artcode.dao.IUserDao;
 import ua.artcode.dao.TaskDaoEntity;
 import ua.artcode.dao.UserDaoEntity;
 import ua.artcode.model.TaskPriority;
 import ua.artcode.model.TaskState;
+import ua.artcode.service.ITaskService;
+import ua.artcode.service.IUserService;
 import ua.artcode.service.TaskServiceImpl;
 import ua.artcode.service.UserServiceImpl;
 
@@ -18,8 +22,13 @@ import javax.servlet.annotation.WebListener;
 public class InitListner implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        sce.getServletContext().setAttribute("taskService",new TaskServiceImpl(new TaskDaoEntity()));
-        sce.getServletContext().setAttribute("userService",new UserServiceImpl(new UserDaoEntity()));
+        ITaskDao taskDao = new TaskDaoEntity();
+        ITaskService taskService = new TaskServiceImpl(taskDao);
+        sce.getServletContext().setAttribute("taskService",taskService);
+
+        IUserDao userDao = new UserDaoEntity();
+        IUserService userService = new UserServiceImpl(userDao);
+        sce.getServletContext().setAttribute("userService", userService);
     }
 
     @Override

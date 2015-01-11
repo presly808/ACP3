@@ -4,6 +4,7 @@ import ua.artcode.model.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -12,7 +13,6 @@ public interface ITaskService {
 
 
     public void redirect(Integer taskId, User executor);
-
     public void changeTaskState(Integer taskId, TaskState state);
 
     public void addNew(String description, TaskState state, TaskPriority priority,
@@ -21,9 +21,10 @@ public interface ITaskService {
 
     public Task readTask(int id);
 
-    public List<Task> showAllTasks();
-
     public void taskUpdate(Task task);
+    public Set<Task> showAllTasks();
+    public Set<Task> showMyExecTasks(int id);
+    public Set<Task> showMyCreatedTasks(int id);
 
 
 

@@ -57,9 +57,7 @@ public class Comment {
 
     @Override
     public String toString() {
-        return
-                "message='" + message + '\'' +
-                ", author=" + author.getName() +
-                ", createDate=" + createDate;
+        return  author.getName()+": \t" + message + "\t ["+createDate+"].";
+
     }
 }

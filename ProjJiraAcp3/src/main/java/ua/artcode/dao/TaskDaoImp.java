@@ -5,6 +5,7 @@ import ua.artcode.model.Task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by admin on 07.12.2014.
@@ -41,7 +42,7 @@ public class TaskDaoImp implements ITaskDao {
     }
 
     @Override
-    public List<Task> showTasks(String queryString) {
+    public Set<Task> showTasks(String queryString) {
         return null;
     }
 

@@ -1,11 +1,9 @@
 package ua.artcode.service;
 
-import ua.artcode.dao.TaskDaoEntity;
+import ua.artcode.dao.ITaskDao;
 import ua.artcode.model.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by admin on 07.12.2014.
@@ -13,29 +11,29 @@ import java.util.List;
 public class TaskServiceImpl implements ITaskService {
 
 
-    private TaskDaoEntity taskDaoEntity;
+    private ITaskDao taskDao;
 
     public TaskServiceImpl() {
 
     }
 
-    public TaskServiceImpl(TaskDaoEntity taskDaoEntity) {
-        this.taskDaoEntity = taskDaoEntity;
+    public TaskServiceImpl(ITaskDao taskDao) {
+        this.taskDao= taskDao;
     }
 
 
     @Override
     public void redirect(Integer taskId, User executor) {
-        Task task = taskDaoEntity.read(taskId);
+        Task task = taskDao.read(taskId);
         task.setExecutor(executor);
-        taskDaoEntity.update(task);
+        taskDao.update(task);
     }
 
     @Override
     public void changeTaskState(Integer taskId, TaskState state) {
-        Task task = taskDaoEntity.read(taskId);
+        Task task = taskDao.read(taskId);
         task.setState(state);
-        taskDaoEntity.update(task);
+        taskDao.update(task);
     }
 
     @Override
@@ -46,20 +44,27 @@ public class TaskServiceImpl implements ITaskService {
         Task task = new Task(description, state, priority, author, executor,
                  createDate, endDate, planingHours, executingHours);
 
-        taskDaoEntity.create(task);
+        taskDao.create(task);
 
     }
 
     @Override
     public Task readTask(int id) {
 
-        return taskDaoEntity.read(id);
+        return taskDao.read(id);
+    }
+
+
+
+    @Override
+    public void taskUpdate(Task task) {
+        taskDao.update(task);
     }
 
     @Override
-    public List<Task> showAllTasks() {
-        List<Task> list = new ArrayList<Task>();
-        list = taskDaoEntity.showTasks("SELECT t FROM Task as t");
+    public Set <Task> showAllTasks() {
+        Set<Task> list = new LinkedHashSet<Task>();
+        list = taskDao.showTasks("SELECT t FROM Task as t");
         for (Task t : list) {
             System.out.println(t);
         }
@@ -67,7 +72,22 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     @Override
-    public void taskUpdate(Task task) {
-        taskDaoEntity.update(task);
+    public Set<Task> showMyExecTasks(int id) {
+        Set<Task> list = new LinkedHashSet<Task>();
+        list = taskDao.showTasks("SELECT t FROM Task as t where t.executor.id = " + id);
+        for (Task t : list) {
+            System.out.println(t);
+        }
+        return list;
+    }
+
+    @Override
+    public Set<Task> showMyCreatedTasks(int id) {
+        Set<Task> list = new LinkedHashSet<Task>();
+        list = taskDao.showTasks("SELECT t FROM Task as t where t.author.id = " + id);
+        for (Task t : list) {
+            System.out.println(t);
+        }
+        return list;
     }
 }

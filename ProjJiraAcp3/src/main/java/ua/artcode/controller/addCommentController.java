@@ -22,7 +22,7 @@ import java.util.Date;
 public class addCommentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+       // req.setCharacterEncoding("UTF-8");
         ITaskService taskService = (TaskServiceImpl) getServletContext().getAttribute("taskService");
         IUserService userService = (UserServiceImpl) getServletContext().getAttribute("userService");
         Task task = taskService.readTask(Integer.parseInt(req.getParameter("id")));

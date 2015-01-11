@@ -1,9 +1,6 @@
 package ua.artcode.model;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by admin on 07.12.2014.
@@ -37,7 +34,7 @@ public class Task {
    // private Project project;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy="visitTasks")
-    List<User> visitors = new ArrayList<User>();
+    Set<User> visitors = new LinkedHashSet<User>();
 
     private Date createDate = new Date();
 
@@ -151,7 +148,7 @@ public class Task {
         return id;
     }
 
-    public List<User> getVisitors() {
+    public Set<User> getVisitors() {
         return visitors;
     }
 

@@ -1,5 +1,8 @@
 package ua.artcode.controller;
 
+import org.apache.log4j.Logger;
+import ua.artcode.exception.LoginException;
+import ua.artcode.exception.PasswordException;
 import ua.artcode.model.User;
 import ua.artcode.service.RegService;
 
@@ -15,6 +18,7 @@ import java.io.PrintWriter;
  */
 @WebServlet("/app/login")
 public class Authorization extends HttpServlet {
+    private static final Logger logger = Logger.getLogger("ua.artcode.controller.Authorization");
     public Authorization() {
 
     }
@@ -22,22 +26,28 @@ public class Authorization extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RegService regService = new RegService();
-        User user = regService.autofication(req.getParameter("login"), req.getParameter("pass"));
+        User user = null;
+        try {
+            user = regService.autofication(req.getParameter("login"), req.getParameter("pass"));
+        } catch (LoginException e) {
+            PrintWriter pw = resp.getWriter();
+            pw.println("Login " + req.getParameter("login") + " is bad!");
+            pw.close();
+            logger.warn("Login " + req.getParameter("login") + " is bad!");
 
-        if (user!=null) {
+        } catch (PasswordException e) {
+            PrintWriter pw = resp.getWriter();
+            pw.println("Password is bad!");
+            pw.close();
+            logger.warn("Password is bad! For login:" + req.getParameter("login"));
+        }
+        if (user != null) {
             HttpSession session = req.getSession(true);
             System.out.println(user);
             session.setAttribute("client", user);
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/home.jsp");
-            rd.forward(req,resp);
-
-
+            rd.forward(req, resp);
+            logger.info("User " + req.getParameter("login")+ " authorized");
         }
-
-        RequestDispatcher rd = req.getRequestDispatcher("/err.html");
-        rd.forward(req, resp);
-
     }
-
-
 }

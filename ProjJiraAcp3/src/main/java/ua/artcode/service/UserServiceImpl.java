@@ -1,5 +1,6 @@
 package ua.artcode.service;
 
+import ua.artcode.dao.IUserDao;
 import ua.artcode.dao.UserDaoEntity;
 import ua.artcode.model.User;
 
@@ -11,29 +12,29 @@ import java.util.List;
 
 public class UserServiceImpl implements IUserService {
 
-    private UserDaoEntity userDaoEntity;
+    private IUserDao userDao;
 
-    public UserServiceImpl(UserDaoEntity userDaoEntity) {
-        this.userDaoEntity = userDaoEntity;
+    public UserServiceImpl(IUserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
     public void addUSer(String name, String login, String email) {
-        userDaoEntity.create(new User(name, email));
+        userDao.create(new User(name, email));
     }
 
     @Override
     public User read(int id) {
-        return  userDaoEntity.find(id);
+        return  userDao.find(id);
     }
 
     @Override
     public List<User> showAllUsers() {
-        List<User> users = userDaoEntity.showUsers("SELECT u FROM User as u");
+        List<User> users = userDao.showUsers("SELECT u FROM User as u");
         return users;
     }
 
     public void userUpdate(User user) {
-        userDaoEntity.userUpdate(user);
+        userDao.userUpdate(user);
     }
 }

@@ -1,5 +1,6 @@
 package ua.artcode.controller;
 
+import org.apache.log4j.Logger;
 import ua.artcode.model.Task;
 import ua.artcode.model.TaskPriority;
 import ua.artcode.model.TaskState;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @WebServlet(value = "/app/editTaskController")
 public class EditTaskController extends HttpServlet {
+    private static final Logger logger = Logger.getLogger("ua.artcode.controller.AddTaskController");
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -61,6 +63,7 @@ public class EditTaskController extends HttpServlet {
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/show_task.jsp");
         req.setAttribute("task",task);
         rd.forward(req, resp);
+        logger.info(client.getName() + " edit task id:" + task.getId());
 
 
     }

@@ -6,8 +6,7 @@ import ua.artcode.model.Task;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Yaroslav on 22.12.2014.
@@ -44,10 +43,14 @@ public class TaskDaoEntity implements ITaskDao {
     }
 
     @Override
-    public List<Task> showTasks(String queryString) {
+    public Set <Task> showTasks(String queryString) {
         Query query  = entityManager.createQuery(queryString);
-        List<Task> list = query.getResultList();
-        return list;
+        List<Task> list =  query.getResultList();
+        Set<Task> tasks = new LinkedHashSet<Task>();
+        for (Task t : list) {
+            tasks.add(t);
+        }
+        return tasks;
 
     }
 }
