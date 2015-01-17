@@ -17,5 +17,4 @@ public interface ITaskService {
     public void addNew(Integer id, String name, Integer desc,
                        Integer prior, Integer state, Integer toId);
 
-
 }
