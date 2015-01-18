@@ -12,7 +12,7 @@
 
 <div id="header">
     <p>Вы вошли под пользователем:<%= client.getName()%> <br>
-        <a  href="/menu/addTask">1.Добавить задачу</a>
+        <a href="/menu/addTask">1.Добавить задачу</a>
         <a href="/menu/selectTasks">2.Просмотреть задачу</a></p>
 </div>
 

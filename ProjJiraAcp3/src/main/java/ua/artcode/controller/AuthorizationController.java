@@ -16,10 +16,14 @@ import java.io.PrintWriter;
 /**
  * Created by Yaroslav on 27.12.2014.
  */
+//   vasia
+//1235
 @WebServlet("/app/login")
-public class Authorization extends HttpServlet {
+public class AuthorizationController extends HttpServlet {
     private static final Logger logger = Logger.getLogger("ua.artcode.controller.Authorization");
-    public Authorization() {
+    public static final String CLIENT = "client";
+
+    public AuthorizationController() {
 
     }
 
@@ -28,12 +32,14 @@ public class Authorization extends HttpServlet {
         RegService regService = new RegService();
         User user = null;
         try {
-            user = regService.autofication(req.getParameter("login"), req.getParameter("pass"));
+            user = regService.autofication(req.getParameter("login").trim(), req.getParameter("pass").trim());
         } catch (LoginException e) {
             PrintWriter pw = resp.getWriter();
-            pw.println("Login " + req.getParameter("login") + " is bad!");
+            //TODO redirect to error page
+            String message = "Login " + req.getParameter("login") + " is bad!";
+            pw.println(message);
             pw.close();
-            logger.warn("Login " + req.getParameter("login") + " is bad!");
+            logger.warn(message);
 
         } catch (PasswordException e) {
             PrintWriter pw = resp.getWriter();
@@ -43,8 +49,7 @@ public class Authorization extends HttpServlet {
         }
         if (user != null) {
             HttpSession session = req.getSession(true);
-            System.out.println(user);
-            session.setAttribute("client", user);
+            session.setAttribute(CLIENT, user);
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/pages/home.jsp");
             rd.forward(req, resp);
             logger.info("User " + req.getParameter("login")+ " authorized");

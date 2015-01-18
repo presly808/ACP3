@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<list><group name="acp3">
+    <student id="1" gender="Male" age="30">
+        <firstname>sergii</firstname>
+        <lastname>chayalovskyi</lastname>
+    </student>
+    <student id="2" gender="Male" age="31">
+        <firstname>yaroslav</firstname>
+        <lastname>babiy</lastname>
+    </student>
+    <student id="3" gender="Female" age="29">
+        <firstname>Ira</firstname>
+        <lastname>Tsiponenko</lastname>
+    </student>
+</group>
+</list>

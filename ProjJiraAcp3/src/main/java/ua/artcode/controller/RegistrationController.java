@@ -20,7 +20,7 @@ import java.io.PrintWriter;
  * Created by Yaroslav on 27.12.2014.
  */
 @WebServlet(value = "/app/reg")
-public class Registration extends HttpServlet {
+public class RegistrationController extends HttpServlet {
     private static final Logger logger = Logger.getLogger("ua.artcode.controller.Registration");
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
